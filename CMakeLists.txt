@@ -8,9 +8,9 @@ find_package(CURL REQUIRED)
 
 include_directories(include ${CURL_INCLUDE_DIR})
 
-add_library(Network SHARED src/Network.cpp)
+add_library(Network STATIC src/Network.cpp)
 target_compile_features(Network PUBLIC cxx_std_17)
-target_link_libraries(Network PRIVATE ${CURL_LIBRARIES})
+target_link_libraries(Network PUBLIC ${CURL_LIBRARIES})
 target_include_directories(Network PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 set_property(GLOBAL PROPERTY Network_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
