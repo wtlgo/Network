@@ -15,10 +15,10 @@ target_include_directories(Network PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 set_property(GLOBAL PROPERTY Network_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set_target_properties(Network PROPERTIES
-VERSION 2.0.2
+VERSION 3.0.0
 PUBLIC_HEADER "include/Network.hpp")
 
 INSTALL(TARGETS Network 
         LIBRARY DESTINATION lib
-        PUBLIC_HEADER DESTINATION include/wtlgo/Network
+        PUBLIC_HEADER DESTINATION include/wtlgo
 )

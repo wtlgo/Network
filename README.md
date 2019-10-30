@@ -31,7 +31,7 @@ target_link_libraries(your_target Network)
  2. Use it
 ```C++
 #include <iostream>
-#include <wtlgo/Network/Network.hpp>
+#include <wtlgo/Network.hpp>
 
 using Network = wtlgo::Network;
 
