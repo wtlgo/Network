@@ -20,6 +20,6 @@ VERSION 1.0.0
 PUBLIC_HEADER "include/Network.hpp")
 
 INSTALL(TARGETS Network 
-        LIBRARY DESTINATION Network/lib
-        PUBLIC_HEADER DESTINATION Network/include
+        LIBRARY DESTINATION lib
+        PUBLIC_HEADER DESTINATION include/wtlgo/Network
 )
