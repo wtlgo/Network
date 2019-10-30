@@ -8,7 +8,7 @@ Simple CURL wrapper for general usage
 
  1. Add it to your CMakeLists.txt
  ```Cmake
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.0)
 project(your_proj)
 include(ExternalProject)
 
@@ -36,7 +36,7 @@ target_link_libraries(your_target Network)
 using Network = wtlgo::Network;
 
 int main() {
-    std::cout << Network::instance().request("https://google.com/") << std::endl;
+    std::cout << Network::instance().request("http://httpbin.org/ip") << std::endl;
     return 0;
 }
 ```
