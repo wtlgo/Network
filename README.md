@@ -25,7 +25,7 @@ link_directories(${EXTERNAL_INSTALL_LOCATION}/lib)
 add_executable(your_target main.cpp)
 target_compile_features(your_target PRIVATE cxx_std_17)
 add_dependencies(your_target NetworkDownload)
-target_link_libraries(your_target Network)
+target_link_libraries(your_target PRIVATE Network)
 ```
 
  2. Use it
