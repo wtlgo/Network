@@ -9,7 +9,10 @@
 
 #include "Network.hpp"
 
-Network::Network(){
+using namespace wtlgo;
+
+Network::
+Network(){
     curl_global_init(CURL_GLOBAL_ALL);
 }
 

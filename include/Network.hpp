@@ -7,6 +7,8 @@
 #include <memory>
 #include <curl/curl.h>
 
+namespace wtlgo {
+    
 class Network{
 public:
     static Network& getInstance();
@@ -35,5 +37,7 @@ private:
     
     CURL_ptr curl_init() const;
 };
+
+}
 
 #endif /* Network_hpp */
