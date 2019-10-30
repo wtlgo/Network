@@ -8,7 +8,7 @@ Simple CURL wrapper for general usage
  ```Cmake
  cmake_minimum_required(VERSION 3.15)
 
-project(youtproj)
+project(yourproj)
 
 include(ExternalProject)
 
