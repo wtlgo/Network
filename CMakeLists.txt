@@ -16,7 +16,7 @@ target_include_directories(Network PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 set_property(GLOBAL PROPERTY Network_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set_target_properties(Network PROPERTIES
-VERSION 1.0.0
+VERSION 1.1.0
 PUBLIC_HEADER "include/Network.hpp")
 
 INSTALL(TARGETS Network 
