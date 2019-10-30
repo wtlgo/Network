@@ -4,14 +4,12 @@
 #include <cstdio>
 #include <string>
 #include <map>
-#include <memory>
-#include <curl/curl.h>
 
 namespace wtlgo {
-    
+
 class Network{
 public:
-    static Network& getInstance();
+    static Network& instance();
     
     Network(Network const&) = delete;
     void operator=(Network const&) = delete;
@@ -25,17 +23,13 @@ public:
     bool download(const std::string& url, const std::string& save_as = "") const;
     
 private:
-    typedef std::shared_ptr<CURL> CURL_ptr;
-    
     std::string proxy;
 
     Network();
     ~Network();
     
-    static size_t string_writer(void *contents, size_t size, size_t nmemb, std::string *stream);
-    static size_t file_writer(void *contents, size_t size, size_t nmemb, FILE *stream);
-    
-    CURL_ptr curl_init() const;
+    static size_t string_writer(char* contents, size_t size, size_t nmemb, std::string* stream);
+    static size_t file_writer(void* contents, size_t size, size_t nmemb, FILE* stream);
 };
 
 }

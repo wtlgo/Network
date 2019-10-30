@@ -34,7 +34,7 @@ target_link_libraries(your_target Network)
 using Network = wtlgo::Network;
 
 int main() {
-    std::cout << Network::getInstance().request("https://google.com/") << std::endl;
+    std::cout << Network::instance().request("https://google.com/") << std::endl;
     return 0;
 }
 ```
