@@ -9,14 +9,14 @@ find_package(Boost 1.70.0 REQUIRED)
 
 include_directories(include ${Boost_INCLUDE_DIR} ${CURL_INCLUDE_DIR})
 
-add_library(Network STATIC src/Network.cpp)
+add_library(Network SHARED src/Network.cpp)
 target_compile_features(Network PUBLIC cxx_std_17)
 target_link_libraries(Network PRIVATE ${Boost_LIBRARIES} ${CURL_LIBRARIES})
 target_include_directories(Network PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 set_property(GLOBAL PROPERTY Network_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set_target_properties(Network PROPERTIES
-VERSION 2.0.0
+VERSION 2.0.1
 PUBLIC_HEADER "include/Network.hpp")
 
 INSTALL(TARGETS Network 
