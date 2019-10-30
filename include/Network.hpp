@@ -30,6 +30,8 @@ private:
     
     static size_t string_writer(char* contents, size_t size, size_t nmemb, std::string* stream);
     static size_t file_writer(void* contents, size_t size, size_t nmemb, FILE* stream);
+
+    std::string join(const std::vector<std::string> lst, const std::string& delim) const;
 };
 
 }

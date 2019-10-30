@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <map>
 #include <vector>
 #include <string>
@@ -7,7 +8,6 @@
 #include <memory>
 
 #include <curl/curl.h>
-#include <boost/algorithm/string/join.hpp>
 
 #include "Network.hpp"
 
@@ -44,7 +44,7 @@ std::string Network::request(std::string url, const std::map<std::string, std::s
             tmp_list.push_back(row.first + "=" + (data ? std::string(data.get()) : row.second));
         }
         
-        fields = boost::algorithm::join(tmp_list, "&");
+        fields = join(tmp_list, "&");
     }
     
     curl = std::shared_ptr<CURL>(curl_easy_init(), curl_easy_cleanup);
@@ -159,4 +159,11 @@ size_t Network::string_writer(char* contents, size_t size, size_t nmemb, std::st
 size_t Network::file_writer(void* contents, size_t size, size_t nmemb, FILE* stream){
     size_t written = fwrite(contents, size, nmemb, stream);
     return written;
+}
+
+std::string Network::join(const std::vector<std::string> lst, const std::string& delim) const {
+    std::ostringstream ss;
+    for(size_t i = 0; i < lst.size(); i++)
+        ss << lst[i] << (i + 1 == lst.size() ? "" : delim);
+    return ss.str();
 }
