@@ -7,7 +7,12 @@ include(GoogleTest)
 
 if(${GTest_FOUND} AND ${nlohmann_json_FOUND})
 
-add_executable(Network_test test.cpp)
+file(GLOB TEST_SRC
+    "src/*.hpp"
+    "src/*.cpp"
+)
+
+add_executable(Network_test ${TEST_SRC})
 target_link_libraries(Network_test Network ${GTEST_LIBRARIES} nlohmann_json)
 target_include_directories(Network_test PRIVATE ${GTEST_INCLUDE_DIR})
 gtest_add_tests(TARGET Network_test AUTO)
