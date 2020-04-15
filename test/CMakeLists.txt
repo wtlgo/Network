@@ -13,7 +13,7 @@ gtest_add_tests(TARGET Network_test AUTO)
 
 else()
 
-message(WARNING "Google Test not found")
+message(WARNING "You should install GTest to enable tests.")
 
 endif()
 
