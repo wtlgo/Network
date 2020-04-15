@@ -1,7 +1,7 @@
 
 cmake_minimum_required(VERSION 3.15.1) 
 
-find_package(GTest REQUIRED)
+find_package(GTest)
 include(GoogleTest)
 
 if(${GTest_FOUND})
@@ -13,7 +13,7 @@ gtest_add_tests(TARGET Network_test AUTO)
 
 else()
 
-message(ALERT "Google Test not found")
+message(WARNING "Google Test not found")
 
 endif()
 
