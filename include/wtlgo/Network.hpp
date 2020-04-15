@@ -7,7 +7,7 @@
 
 namespace wtlgo {
 
-class Network{
+class Network {
 public:
     static Network& instance();
     
@@ -32,6 +32,7 @@ private:
     static size_t file_writer(void* contents, size_t size, size_t nmemb, FILE* stream);
 
     std::string join(const std::vector<std::string> lst, const std::string& delim) const;
+    std::string url_encode(const std::string& str) const;
 };
 
 extern Network& network;

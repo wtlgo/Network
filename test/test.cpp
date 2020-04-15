@@ -58,12 +58,13 @@ TEST(Request, Get_NoSSL_Random)
     
     ASSERT_NO_THROW({
         for(size_t i = 0; i < 10; i++) {
+            const string arg = random_string(500);
             const string val = random_string(1000);
             
-            string response = network.request("http://" + test_server + "/get", {{"test", val}});
+            string response = network.request("http://" + test_server + "/get", {{arg, val}});
             auto resp = json::parse(response);
 
-            ASSERT_EQ(resp["args"]["test"], val) << response;
+            ASSERT_EQ(resp["args"][arg], val) << response;
         }
     });
 }
@@ -76,12 +77,13 @@ TEST(Request, Get_SSL_Random)
     
     ASSERT_NO_THROW({
         for(size_t i = 0; i < 10; i++) {
-            const string val = random_string(1000);
+            const string arg = random_string(500);
+            const string val = random_string(500);
             
-            string response = network.request("https://" + test_server + "/get", {{"test", val}});
+            string response = network.request("https://" + test_server + "/get", {{arg, val}});
             auto resp = json::parse(response);
 
-            ASSERT_EQ(resp["args"]["test"], val);
+            ASSERT_EQ(resp["args"][arg], val);
         }
     });
 }
