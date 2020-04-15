@@ -34,6 +34,8 @@ private:
     std::string join(const std::vector<std::string> lst, const std::string& delim) const;
 };
 
+extern Network& network;
+
 }
 
 #endif /* Network_hpp */

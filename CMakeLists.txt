@@ -18,3 +18,6 @@ target_link_libraries(Network PUBLIC ${CURL_LIBRARIES})
 
 target_include_directories(Network INTERFACE ${PROJECT_SOURCE_DIR}/include/)
 target_include_directories(Network PRIVATE ${PROJECT_SOURCE_DIR}/include/wtlgo/)
+
+enable_testing()
+add_subdirectory(test)

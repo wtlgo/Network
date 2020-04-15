@@ -10,6 +10,8 @@
 
 #include <Network.hpp>
 
+wtlgo::Network& wtlgo::network = wtlgo::Network::instance();
+
 using namespace wtlgo;
 
 Network::Network(){
