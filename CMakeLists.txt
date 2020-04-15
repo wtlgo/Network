@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.13)
 
 include_guard(GLOBAL)
 
 project(
         Network 
         LANGUAGES CXX
-        VERSION 3.1.2
+        VERSION 3.1.3
 )
 
 find_package(CURL REQUIRED)
