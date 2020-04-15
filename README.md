@@ -2,13 +2,14 @@
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/wtlgo/Network.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wtlgo/Network/context:cpp)
 
 # Network
+
 Simple CURL wrapper for general usage
 
 # How to use
 
  1. Add it to your CMakeLists.txt
  ```Cmake
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.13)
 project(your_proj)
 include(ExternalProject)
 
@@ -33,13 +34,13 @@ target_link_libraries(your_target Network)
 #include <iostream>
 #include <wtlgo/Network.hpp>
 
-using Network = wtlgo::Network;
-
 int main() {
-    std::cout << Network::instance().request("http://httpbin.org/ip") << std::endl;
+    using namespace wtlgo;
+
+    std::cout << network.request("http://httpbin.org/ip") << std::endl;
+
     return 0;
 }
 ```
-
  3. ????
  2. PROFIT
