@@ -8,7 +8,7 @@
 
 #include <curl/curl.h>
 
-#include "Network.hpp"
+#include <Network.hpp>
 
 using namespace wtlgo;
 
