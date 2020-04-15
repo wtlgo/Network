@@ -17,4 +17,4 @@ target_compile_features(Network PUBLIC cxx_std_17)
 target_link_libraries(Network PUBLIC ${CURL_LIBRARIES})
 
 target_include_directories(Network INTERFACE ${PROJECT_SOURCE_DIR}/include/)
-target_include_directories(Network PUBLIC ${PROJECT_SOURCE_DIR}/include/wtlgo/)
+target_include_directories(Network PRIVATE ${PROJECT_SOURCE_DIR}/include/wtlgo/)
