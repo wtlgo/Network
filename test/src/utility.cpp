@@ -1,4 +1,5 @@
 #include <random>
+#include <algorithm>
 #include "utility.hpp"
 
 const std::string test_server = "httpbin.org";
