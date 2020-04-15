@@ -7,6 +7,7 @@ include(GoogleTest)
 
 if(${GTest_FOUND} AND ${nlohmann_json_FOUND})
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 file(GLOB TEST_SRC
     "src/*.hpp"
     "src/*.cpp"
