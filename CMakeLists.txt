@@ -5,7 +5,7 @@ include_guard(GLOBAL)
 project(
         Network 
         LANGUAGES CXX
-        VERSION 3.1.3
+        VERSION 3.2.0
 )
 
 find_package(CURL REQUIRED)
