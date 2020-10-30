@@ -6,6 +6,8 @@
 #include <vector>
 #include <map>
 
+#include "Logger.hpp"
+
 namespace wtlgo {
 
 class Network {
@@ -23,6 +25,9 @@ public:
     
     bool download(const std::string& url, const std::string& save_as = "") const;
     
+    void set_logger(std::shared_ptr<ILogger> obj) { logger = obj; }
+    std::shared_ptr<ILogger> get_logger() { return logger; }
+
 private:
     std::string proxy;
 
@@ -34,6 +39,8 @@ private:
 
     std::string join(const std::vector<std::string> lst, const std::string& delim) const;
     std::string url_encode(const std::string& str) const;
+
+    std::shared_ptr<ILogger> logger(new ILogger());
 };
 
 extern Network& network;

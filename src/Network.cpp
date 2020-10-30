@@ -1,4 +1,3 @@
-#include <iostream>
 #include <sstream>
 #include <map>
 #include <vector>
@@ -67,7 +66,7 @@ std::string Network::request(std::string url, const std::map<std::string, std::s
         res = curl_easy_perform(curl.get());
                 
         if(res != 0) {
-            std::cerr << curl_easy_strerror(res) << std::endl;
+            logger->log(res);
             return "";
         }
     }
@@ -99,7 +98,7 @@ bool Network::download(const std::string& url, const std::string& save_as) const
         res = curl_easy_perform(curl.get());
                         
         if(res != 0){
-            std::cerr << curl_easy_strerror(res) << std::endl;
+            logger->log(res);
             remove(filename.c_str());
             return false;
         }
@@ -139,7 +138,7 @@ std::string Network::upload(std::string url, const std::string& fieldname, const
         res = curl_easy_perform(curl.get());
         
         if (res != CURLE_OK){
-            std::cerr << curl_easy_strerror(res) << std::endl;
+            logger->log(res);
             return "";
         }
     }
