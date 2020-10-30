@@ -8,11 +8,15 @@ namespace wtlgo {
 
 class ILogger {
 public:
-	virtual ILogger() {}
-	virtual ~ILogger() {}
-	virtual void log(CURLcode log) { std::cerr << curl_easy_strerror(log) << std::endl; }
+	virtual ILogger();
+	virtual ~ILogger();
+	virtual void log(CURLcode log);
 };
 
+class StandardLogger : public ILogger
+{
+public:
+	void log(CURLcode log) { std::cerr << curl_easy_strerror(log) << std::endl; }
 }
 
 #endif /* Logger_hpp */
