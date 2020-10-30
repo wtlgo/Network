@@ -13,10 +13,11 @@ public:
 	virtual void log(CURLcode log);
 };
 
-class StandardLogger : public ILogger
-{
+class StandardLogger : public ILogger {
 public:
 	void log(CURLcode log) { std::cerr << curl_easy_strerror(log) << std::endl; }
+};
+
 }
 
 #endif /* Logger_hpp */
