@@ -172,3 +172,11 @@ std::string Network::url_encode(const std::string& str) const {
 
     return data ? std::string(data.get()) : str;
 }
+
+void set_logger(std::shared_ptr<ILogger> obj) {
+    logger = obj;
+}
+
+std::shared_ptr<ILogger> get_logger() {
+    return logger;
+}
