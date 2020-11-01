@@ -8,6 +8,7 @@
 #include <curl/curl.h>
 
 #include <Network.hpp>
+#include <StandardLogger.hpp>
 
 wtlgo::Network& wtlgo::network = wtlgo::Network::instance();
 
