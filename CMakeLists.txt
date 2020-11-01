@@ -23,7 +23,10 @@ target_link_libraries(Network PUBLIC ${CURL_LIBRARIES})
 target_include_directories(Network PUBLIC include/)
 target_include_directories(Network PRIVATE include/wtlgo/ ${CURL_INCLUDE_DIR})
 set_target_properties(Network PROPERTIES 
-        PUBLIC_HEADER include/wtlgo/Network.hpp 
+        PUBLIC_HEADER 
+                include/wtlgo/Network.hpp 
+                include/wtlgo/Logger.hpp
+                include/wtlgo/StandardLogger.hpp
         VERSION ${PROJECT_VERSION}
 )
 
