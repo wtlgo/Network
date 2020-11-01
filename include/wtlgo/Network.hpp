@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <string>
 #include <vector>
+#include <memory>
 #include <map>
 
 #include "Logger.hpp"
