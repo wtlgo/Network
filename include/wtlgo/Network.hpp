@@ -6,7 +6,7 @@
 #include <vector>
 #include <map>
 
-#include <Logger.hpp>
+#include "Logger.hpp"
 
 namespace wtlgo {
 
