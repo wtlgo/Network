@@ -13,7 +13,7 @@ wtlgo::Network& wtlgo::network = wtlgo::Network::instance();
 
 using namespace wtlgo;
 
-Network::Network() {
+Network::Network() : logger{ std::make_shared<StandardLogger>() } {
     curl_global_init(CURL_GLOBAL_ALL);
 }
 
@@ -66,7 +66,8 @@ std::string Network::request(std::string url, const std::map<std::string, std::s
         res = curl_easy_perform(curl.get());
                 
         if(res != 0) {
-            logger->log(res);
+            if(logger != nullptr)
+                logger->log(res);
             return "";
         }
     }
@@ -97,8 +98,10 @@ bool Network::download(const std::string& url, const std::string& save_as) const
         
         res = curl_easy_perform(curl.get());
                         
-        if(res != 0){
-            logger->log(res);
+        if (res != 0) {
+            if(logger != nullptr)
+                logger->log(res);
+
             remove(filename.c_str());
             return false;
         }
@@ -177,6 +180,6 @@ void Network::set_logger(std::shared_ptr<ILogger> obj) {
     logger = obj;
 }
 
-std::shared_ptr<ILogger> Network::get_logger() {
+std::shared_ptr<ILogger> Network::get_logger() const {
     return logger;
 }

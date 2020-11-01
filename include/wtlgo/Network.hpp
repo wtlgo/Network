@@ -6,7 +6,7 @@
 #include <vector>
 #include <map>
 
-#include "Logger.hpp"
+#include <Logger.hpp>
 
 namespace wtlgo {
 
@@ -26,7 +26,7 @@ public:
     bool download(const std::string& url, const std::string& save_as = "") const;
     
     void set_logger(std::shared_ptr<ILogger> obj);
-    std::shared_ptr<ILogger> get_logger();
+    std::shared_ptr<ILogger> get_logger() const;
 
 private:
     std::string proxy;
@@ -40,7 +40,7 @@ private:
     std::string join(const std::vector<std::string> lst, const std::string& delim) const;
     std::string url_encode(const std::string& str) const;
 
-    std::shared_ptr<ILogger> logger(new StandardLogger());
+    std::shared_ptr<ILogger> logger;
 };
 
 extern Network& network;
