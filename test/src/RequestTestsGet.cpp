@@ -10,8 +10,9 @@ TEST(Request, Get_NoSSL_Static) {
     using json = nlohmann::json;
     using string = std::string;
 
-    string response =
+    const string response =
         network.request("http://" + test_server + "/get", {{"hello", "hello"}});
+
     ASSERT_NO_THROW({
         auto resp = json::parse(response);
         ASSERT_EQ(resp["args"]["hello"], "hello");
@@ -23,8 +24,8 @@ TEST(Request, Get_SSL_Static) {
     using json = nlohmann::json;
     using string = std::string;
 
-    string response = network.request("https://" + test_server + "/get",
-                                      {{"hello", "hello"}});
+    const string response = network.request("https://" + test_server + "/get",
+                                            {{"hello", "hello"}});
     ASSERT_NO_THROW({
         auto resp = json::parse(response);
         ASSERT_EQ(resp["args"]["hello"], "hello");
@@ -40,9 +41,10 @@ TEST(Request, Get_NoSSL_Random) {
         const string arg = random_string(500);
         const string val = random_string(1000);
 
-        string response =
+        const string response =
             network.request("http://" + test_server + "/get", {{arg, val}});
-        auto resp = json::parse(response);
+
+        const auto resp = json::parse(response);
 
         ASSERT_EQ(resp["args"][arg], val);
     });
@@ -57,9 +59,9 @@ TEST(Request, Get_SSL_Random) {
         const string arg = random_string(500);
         const string val = random_string(500);
 
-        string response =
+        const string response =
             network.request("https://" + test_server + "/get", {{arg, val}});
-        auto resp = json::parse(response);
+        const auto resp = json::parse(response);
 
         ASSERT_EQ(resp["args"][arg], val);
     });
@@ -77,9 +79,9 @@ TEST(Request, Get_NoSSL_Random_MultipleArgs) {
     }
 
     ASSERT_NO_THROW({
-        string response =
+        const string response =
             network.request("http://" + test_server + "/get", args);
-        auto resp = json::parse(response);
+        const auto resp = json::parse(response);
 
         for (const auto& arg : args) {
             ASSERT_EQ(resp["args"][arg.first], arg.second);
@@ -99,9 +101,10 @@ TEST(Request, Get_SSL_Random_MultipleArgs) {
     }
 
     ASSERT_NO_THROW({
-        string response =
+        const string response =
             network.request("https://" + test_server + "/get", args);
-        auto resp = json::parse(response);
+
+        const auto resp = json::parse(response);
 
         for (const auto& arg : args) {
             ASSERT_EQ(resp["args"][arg.first], arg.second);

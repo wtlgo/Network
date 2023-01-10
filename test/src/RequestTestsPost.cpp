@@ -10,8 +10,8 @@ TEST(Request, Post_NoSSL_Static) {
     using json = nlohmann::json;
     using string = std::string;
 
-    string response = network.request("http://" + test_server + "/post",
-                                      {{"hello", "hello"}}, true);
+    const string response = network.request("http://" + test_server + "/post",
+                                            {{"hello", "hello"}}, true);
     ASSERT_NO_THROW({
         auto resp = json::parse(response);
         ASSERT_EQ(resp["form"]["hello"], "hello");
@@ -23,10 +23,10 @@ TEST(Request, Post_SSL_Static) {
     using json = nlohmann::json;
     using string = std::string;
 
-    string response = network.request("https://" + test_server + "/post",
-                                      {{"hello", "hello"}}, true);
+    const string response = network.request("https://" + test_server + "/post",
+                                            {{"hello", "hello"}}, true);
     ASSERT_NO_THROW({
-        auto resp = json::parse(response);
+        const auto resp = json::parse(response);
         ASSERT_EQ(resp["form"]["hello"], "hello");
     });
 }
@@ -40,9 +40,9 @@ TEST(Request, Post_NoSSL_Random) {
         const string arg = random_string(1000);
         const string val = random_string(1000);
 
-        string response = network.request("http://" + test_server + "/post",
-                                          {{arg, val}}, true);
-        auto resp = json::parse(response);
+        const string response = network.request(
+            "http://" + test_server + "/post", {{arg, val}}, true);
+        const auto resp = json::parse(response);
 
         ASSERT_EQ(resp["form"][arg], val);
     });
@@ -57,9 +57,10 @@ TEST(Request, Post_SSL_Random) {
         const string arg = random_string(1000);
         const string val = random_string(1000);
 
-        string response = network.request("https://" + test_server + "/post",
-                                          {{arg, val}}, true);
-        auto resp = json::parse(response);
+        const string response = network.request(
+            "https://" + test_server + "/post", {{arg, val}}, true);
+
+        const auto resp = json::parse(response);
 
         ASSERT_EQ(resp["form"][arg], val);
     });
@@ -77,9 +78,9 @@ TEST(Request, Post_NoSSL_Random_MultipleArgs) {
     }
 
     ASSERT_NO_THROW({
-        string response =
+        const string response =
             network.request("http://" + test_server + "/post", args, true);
-        auto resp = json::parse(response);
+        const auto resp = json::parse(response);
 
         for (const auto& arg : args) {
             ASSERT_EQ(resp["form"][arg.first], arg.second);
@@ -98,10 +99,11 @@ TEST(Request, Post_SSL_Random_MultipleArgs) {
         args[random_string(1000)] = random_string(1000);
     }
 
-    string response =
+    const string response =
         network.request("https://" + test_server + "/post", args, true);
+
     ASSERT_NO_THROW({
-        auto resp = json::parse(response);
+        const auto resp = json::parse(response);
 
         for (const auto& arg : args) {
             ASSERT_EQ(resp["form"][arg.first], arg.second);
