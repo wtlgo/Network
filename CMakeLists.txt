@@ -16,8 +16,13 @@ target_link_libraries(Network PUBLIC ${CURL_LIBRARIES})
 
 target_include_directories(Network PUBLIC include/)
 target_include_directories(Network PRIVATE include/wtlgo/ ${CURL_INCLUDE_DIR})
+
+set(PUBLIC_HEADERS
+        "include/wtlgo/Network.hpp"
+)
+
 set_target_properties(Network PROPERTIES 
-        PUBLIC_HEADER include/wtlgo/Network.hpp
+        PUBLIC_HEADER "${PUBLIC_HEADERS}"
         VERSION ${PROJECT_VERSION}
 )
 
