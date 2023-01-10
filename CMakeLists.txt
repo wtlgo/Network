@@ -12,10 +12,10 @@ find_package(CURL REQUIRED)
 
 add_library(Network src/Network.cpp include/wtlgo/Network.hpp)
 target_compile_features(Network PUBLIC cxx_std_17)
-target_link_libraries(Network PUBLIC ${CURL_LIBRARIES})
+target_link_libraries(Network PUBLIC CURL::libcurl)
 
 target_include_directories(Network PUBLIC include/)
-target_include_directories(Network PRIVATE include/wtlgo/ ${CURL_INCLUDE_DIR})
+target_include_directories(Network PRIVATE include/wtlgo/)
 
 set(PUBLIC_HEADERS
         "include/wtlgo/Network.hpp"
@@ -33,5 +33,7 @@ install(
         PUBLIC_HEADER DESTINATION include/wtlgo COMPONENT Development
 )
 
-enable_testing()
-add_subdirectory(test)
+if(DEFINED ENABLE_TESTING)
+        enable_testing()
+        add_subdirectory(test)
+endif()

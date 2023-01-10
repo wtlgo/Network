@@ -63,8 +63,9 @@ std::string Network::request(std::string url,
         curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, &readBuffer);
         curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, string_writer);
         curl_easy_setopt(curl.get(), CURLOPT_FOLLOWLOCATION, 1);
-        if (proxy.size() > 0)
+        if (proxy.size() > 0) {
             curl_easy_setopt(curl.get(), CURLOPT_PROXY, proxy.c_str());
+        }
 
         res = curl_easy_perform(curl.get());
 
@@ -170,8 +171,11 @@ size_t Network::file_writer(void* contents, size_t size, size_t nmemb,
 std::string Network::join(const std::vector<std::string> lst,
                           const std::string& delim) const {
     std::ostringstream ss;
-    for (size_t i = 0; i < lst.size(); i++)
+
+    for (size_t i = 0; i < lst.size(); i++) {
         ss << lst[i] << (i + 1 == lst.size() ? "" : delim);
+    }
+
     return ss.str();
 }
 
