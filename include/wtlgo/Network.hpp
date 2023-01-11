@@ -7,6 +7,7 @@
 #include <map>
 
 namespace wtlgo {
+namespace old {
 
 class Network {
 public:
@@ -45,5 +46,5 @@ private:
 
 extern Network& network;
 }
-
+}
 #endif /* Network_hpp */

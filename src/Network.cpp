@@ -10,9 +10,9 @@
 
 #include <Network.hpp>
 
-wtlgo::Network& wtlgo::network = wtlgo::Network::instance();
+wtlgo::old::Network& wtlgo::old::network = wtlgo::old::Network::instance();
 
-using namespace wtlgo;
+using namespace wtlgo::old;
 
 Network::Network() { curl_global_init(CURL_GLOBAL_ALL); }
 
@@ -100,8 +100,10 @@ bool Network::download(const std::string& url,
         curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, file.get());
         curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, file_writer);
         curl_easy_setopt(curl.get(), CURLOPT_FOLLOWLOCATION, 1);
-        if (proxy.size() > 0)
+
+        if (proxy.size() > 0) {
             curl_easy_setopt(curl.get(), CURLOPT_PROXY, proxy.c_str());
+        }
 
         res = curl_easy_perform(curl.get());
 
