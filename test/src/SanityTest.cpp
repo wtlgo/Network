@@ -1,4 +1,4 @@
-#include <wtlgo/Network.hpp>
+#include <wtlgo/NetworkOld.hpp>
 #include <gtest/gtest.h>
 
 TEST(SanityCheck, DidInit) {

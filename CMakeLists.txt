@@ -10,16 +10,21 @@ project(
 
 find_package(CURL REQUIRED)
 
-add_library(Network src/Network.cpp include/wtlgo/Network.hpp)
+set(PUBLIC_HEADERS
+        "include/wtlgo/NetworkOld.hpp"
+)
+
+set(SOURCES
+        "src/NetworkOld.cpp"
+)
+
+add_library(Network ${SOURCES})
 target_compile_features(Network PUBLIC cxx_std_17)
 target_link_libraries(Network PUBLIC CURL::libcurl)
 
 target_include_directories(Network PUBLIC include/)
 target_include_directories(Network PRIVATE include/wtlgo/)
 
-set(PUBLIC_HEADERS
-        "include/wtlgo/Network.hpp"
-)
 
 set_target_properties(Network PROPERTIES 
         PUBLIC_HEADER "${PUBLIC_HEADERS}"

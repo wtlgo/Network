@@ -8,7 +8,7 @@
 
 #include <curl/curl.h>
 
-#include <Network.hpp>
+#include <NetworkOld.hpp>
 
 wtlgo::old::Network& wtlgo::old::network = wtlgo::old::Network::instance();
 
