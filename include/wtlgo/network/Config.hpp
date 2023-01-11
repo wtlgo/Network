@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <optional>
 #include <functional>
+#include <variant>
 
 #include <wtlgo/network/HttpMethod.hpp>
 
@@ -21,6 +22,10 @@ public:
     using header_value_opt_ref_t =
         std::optional<std::reference_wrapper<const header_value_t>>;
     using headers_t = std::unordered_map<header_field_name_t, header_value_t>;
+
+    using data_field_name_t = std::string;
+    using data_value_t = std::variant<std::string>;
+    using data_t = std::unordered_map<data_field_name_t, data_value_t>;
 
     Config();
     Config(const Config&);
