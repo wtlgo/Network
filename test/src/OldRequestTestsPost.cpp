@@ -5,7 +5,7 @@
 
 #include "utility.hpp"
 
-TEST(Request, Post_NoSSL_Static) {
+TEST(OldRequest, Post_NoSSL_Static) {
     using namespace wtlgo::old;
     using json = nlohmann::json;
     using string = std::string;
@@ -18,7 +18,7 @@ TEST(Request, Post_NoSSL_Static) {
     });
 }
 
-TEST(Request, Post_SSL_Static) {
+TEST(OldRequest, Post_SSL_Static) {
     using namespace wtlgo::old;
     using json = nlohmann::json;
     using string = std::string;
@@ -31,7 +31,7 @@ TEST(Request, Post_SSL_Static) {
     });
 }
 
-TEST(Request, Post_NoSSL_Random) {
+TEST(OldRequest, Post_NoSSL_Random) {
     using namespace wtlgo::old;
     using json = nlohmann::json;
     using string = std::string;
@@ -48,7 +48,7 @@ TEST(Request, Post_NoSSL_Random) {
     });
 }
 
-TEST(Request, Post_SSL_Random) {
+TEST(OldRequest, Post_SSL_Random) {
     using namespace wtlgo::old;
     using json = nlohmann::json;
     using string = std::string;
@@ -66,7 +66,7 @@ TEST(Request, Post_SSL_Random) {
     });
 }
 
-TEST(Request, Post_NoSSL_Random_MultipleArgs) {
+TEST(OldRequest, Post_NoSSL_Random_MultipleArgs) {
     using namespace wtlgo::old;
     using json = nlohmann::json;
     using string = std::string;
@@ -88,7 +88,7 @@ TEST(Request, Post_NoSSL_Random_MultipleArgs) {
     });
 }
 
-TEST(Request, Post_SSL_Random_MultipleArgs) {
+TEST(OldRequest, Post_SSL_Random_MultipleArgs) {
     using namespace wtlgo::old;
     using json = nlohmann::json;
     using string = std::string;
