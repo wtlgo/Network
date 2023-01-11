@@ -23,8 +23,9 @@ TEST(Config, Method) {
 
     ASSERT_EQ(config.method(), HttpMethod::GET);
 
-    for (const HttpMethod test_method : {HttpMethod::POST, HttpMethod::PUT,
-                                         HttpMethod::DELETE, HttpMethod::GET}) {
+    for (const HttpMethod test_method :
+         {HttpMethod::POST, HttpMethod::PUT, HttpMethod::PATCH,
+          HttpMethod::DELETE, HttpMethod::GET}) {
         ASSERT_EQ(&config.method(test_method), &config);
         ASSERT_EQ(config.method(), test_method);
     }
@@ -75,7 +76,8 @@ TEST(Config, HeadersSingle) {
 
     Config::header_field_name_t none_name;
     for (std::size_t i = 0; i < 10; ++i) {
-        const Config::header_field_name_t test_field_name = random_string(10, true);
+        const Config::header_field_name_t test_field_name =
+            random_string(10, true);
         const Config::header_value_t test_value = random_string(50);
 
         none_name.push_back(1 + (127 - 1 + test_field_name.at(i)) % (127 - 1));

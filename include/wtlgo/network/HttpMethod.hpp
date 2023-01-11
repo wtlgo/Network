@@ -3,7 +3,7 @@
 
 namespace wtlgo {
 namespace network {
-enum class HttpMethod { GET, POST, PUT, DELETE };
+enum class HttpMethod { GET, POST, PUT, PATCH, DELETE };
 }
 }
 
