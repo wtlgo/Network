@@ -15,12 +15,14 @@ set(PUBLIC_HEADERS
         "include/wtlgo/network/Config.hpp"
         "include/wtlgo/network/HttpMethod.hpp"
         "include/wtlgo/network/CurlController.hpp"
+        "include/wtlgo/network/Client.hpp"
 )
 
 set(SOURCES
         "src/NetworkOld.cpp"
         "src/Config.cpp"
         "src/CurlController.cpp"
+        "src/Client.cpp"
 )
 
 add_library(Network ${SOURCES})
