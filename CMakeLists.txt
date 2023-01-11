@@ -12,10 +12,13 @@ find_package(CURL REQUIRED)
 
 set(PUBLIC_HEADERS
         "include/wtlgo/NetworkOld.hpp"
+        "include/wtlgo/network/Config.hpp"
+        "include/wtlgo/network/HttpMethod.hpp"
 )
 
 set(SOURCES
         "src/NetworkOld.cpp"
+        "src/Config.cpp"
 )
 
 add_library(Network ${SOURCES})
@@ -23,7 +26,7 @@ target_compile_features(Network PUBLIC cxx_std_17)
 target_link_libraries(Network PUBLIC CURL::libcurl)
 
 target_include_directories(Network PUBLIC include/)
-target_include_directories(Network PRIVATE include/wtlgo/)
+target_include_directories(Network PRIVATE include/)
 
 
 set_target_properties(Network PROPERTIES 

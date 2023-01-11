@@ -3,7 +3,7 @@
 
 #include <string>
 
-std::string random_string(size_t max_length);
+std::string random_string(size_t max_length, bool exact = false);
 extern const std::string test_server;
 
 #endif
