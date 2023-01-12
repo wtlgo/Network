@@ -88,4 +88,54 @@ TEST(Config, HeadersSingle) {
         ASSERT_EQ(real_value.has_value(), true);
         ASSERT_EQ(real_value.value().get(), test_value);
     }
+
+    ASSERT_EQ(config.header(none_name).has_value(), false);
+}
+
+TEST(Config, DataAll) {
+    using namespace wtlgo::network;
+
+    Config config;
+
+    ASSERT_EQ(config.data().size(), 0);
+
+    Config::data_t test_data;
+    for (std::size_t i = 0; i < 10; ++i) {
+        test_data[random_string(50)] = random_string(50);
+    }
+
+    ASSERT_EQ(&config.data(test_data), &config);
+    ASSERT_EQ(config.data().size(), test_data.size());
+
+    for (const auto & [ test_field_name, test_value ] : test_data) {
+        const auto& data = config.data();
+        const auto field = data.find(test_field_name);
+        ASSERT_NE(field, data.cend());
+
+        ASSERT_EQ(field->first, test_field_name);
+        ASSERT_EQ(field->second, test_value);
+    }
+}
+
+TEST(Config, DataSingle) {
+    using namespace wtlgo::network;
+
+    Config config;
+
+    Config::data_field_name_t none_name;
+    for (std::size_t i = 0; i < 10; ++i) {
+        const Config::data_field_name_t test_field_name =
+            random_string(10, true);
+        const Config::data_value_t test_value = random_string(50);
+
+        none_name.push_back(1 + (127 - 1 + test_field_name.at(i)) % (127 - 1));
+
+        ASSERT_EQ(&config.data_field(test_field_name, test_value), &config);
+
+        const auto real_value = config.data_field(test_field_name);
+        ASSERT_EQ(real_value.has_value(), true);
+        ASSERT_EQ(real_value.value().get(), test_value);
+    }
+
+    ASSERT_EQ(config.data_field(none_name).has_value(), false);
 }

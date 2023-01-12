@@ -38,6 +38,26 @@ struct Config::ConfigImpl {
                 const header_value_t& value) {
         _headers[field_name] = value;
     }
+
+    data_t _data;
+
+    const data_t& data() const { return _data; }
+    void data(const data_t& new_data) { _data = new_data; }
+
+    const data_value_opt_ref_t data_field(
+        const data_field_name_t& field_name) const {
+        const auto field = _data.find(field_name);
+
+        if (field == _data.cend()) {
+            return std::nullopt;
+        }
+
+        return std::cref(field->second);
+    }
+
+    void data_field(const data_field_name_t& field, const data_value_t& value) {
+        _data[field] = value;
+    }
 };
 
 Config::Config() : impl{std::make_unique<ConfigImpl>()} {}
@@ -78,5 +98,23 @@ const Config::header_value_opt_ref_t Config::header(
 Config& Config::header(const Config::header_field_name_t& field_name,
                        const Config::header_value_t& value) {
     impl->header(field_name, value);
+    return *this;
+}
+
+const Config::data_t& Config::data() const { return impl->data(); }
+
+Config& Config::data(const Config::data_t& new_data) {
+    impl->data(new_data);
+    return *this;
+}
+
+const Config::data_value_opt_ref_t Config::data_field(
+    const Config::data_field_name_t& field) const {
+    return impl->data_field(field);
+}
+
+Config& Config::data_field(const Config::data_field_name_t& field,
+                           const Config::data_value_t& value) {
+    impl->data_field(field, value);
     return *this;
 }
