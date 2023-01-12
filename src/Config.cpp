@@ -40,7 +40,6 @@ struct Config::ConfigImpl {
     }
 
     data_t _data;
-
     const data_t& data() const { return _data; }
     void data(const data_t& new_data) { _data = new_data; }
 
@@ -58,6 +57,10 @@ struct Config::ConfigImpl {
     void data_field(const data_field_name_t& field, const data_value_t& value) {
         _data[field] = value;
     }
+
+    timeout_t _timeout = 0;
+    timeout_t timeout() const { return _timeout; }
+    void timeout(const timeout_t timeout) { _timeout = timeout; }
 };
 
 Config::Config() : impl{std::make_unique<ConfigImpl>()} {}
@@ -116,5 +119,11 @@ const Config::data_value_opt_ref_t Config::data_field(
 Config& Config::data_field(const Config::data_field_name_t& field,
                            const Config::data_value_t& value) {
     impl->data_field(field, value);
+    return *this;
+}
+
+Config::timeout_t Config::timeout() const { return impl->timeout(); }
+Config& Config::timeout(const timeout_t timeout) {
+    impl->timeout(timeout);
     return *this;
 }

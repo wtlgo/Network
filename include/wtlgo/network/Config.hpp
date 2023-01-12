@@ -29,6 +29,8 @@ public:
         std::optional<std::reference_wrapper<const data_value_t>>;
     using data_t = std::unordered_map<data_field_name_t, data_value_t>;
 
+    using timeout_t = unsigned long;
+
     Config();
     Config(const Config&);
 
@@ -56,6 +58,9 @@ public:
     const data_value_opt_ref_t data_field(const data_field_name_t& field) const;
     Config& data_field(const data_field_name_t& field,
                        const data_value_t& value);
+
+    timeout_t timeout() const;
+    Config& timeout(timeout_t timeout);
 
 private:
     struct ConfigImpl;

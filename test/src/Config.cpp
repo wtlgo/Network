@@ -139,3 +139,14 @@ TEST(Config, DataSingle) {
 
     ASSERT_EQ(config.data_field(none_name).has_value(), false);
 }
+
+TEST(Config, Timeout) {
+    using namespace wtlgo::network;
+    Config config;
+
+    ASSERT_EQ(config.timeout(), 0);
+
+    const Config::timeout_t test_timeout = random_unsigned();
+    ASSERT_EQ(&config.timeout(test_timeout), &config);
+    ASSERT_EQ(config.timeout(), test_timeout);
+}

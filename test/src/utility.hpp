@@ -3,7 +3,9 @@
 
 #include <string>
 
-std::string random_string(size_t max_length, bool exact = false);
 extern const std::string test_server;
+
+std::string random_string(size_t max_length, bool exact = false);
+unsigned random_unsigned();
 
 #endif
