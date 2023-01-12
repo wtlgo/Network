@@ -23,6 +23,8 @@ HttpBasicAuth::HttpBasicAuth() : impl{std::make_unique<HttpBasicAuthImpl>()} {}
 HttpBasicAuth::HttpBasicAuth(const username_t& username,
                              const password_t& password)
     : impl{std::make_unique<HttpBasicAuthImpl>(username, password)} {}
+HttpBasicAuth::HttpBasicAuth(const HttpBasicAuth& auth)
+    : impl{std::make_unique<HttpBasicAuthImpl>(*auth.impl)} {}
 HttpBasicAuth::~HttpBasicAuth() = default;
 
 const HttpBasicAuth::username_t& HttpBasicAuth::username() const {

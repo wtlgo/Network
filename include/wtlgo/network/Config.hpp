@@ -9,10 +9,10 @@
 #include <variant>
 
 #include <wtlgo/network/HttpMethod.hpp>
+#include <wtlgo/network/HttpBasicAuth.hpp>
 
 namespace wtlgo {
 namespace network {
-
 class Config {
 public:
     using url_t = std::string;
@@ -61,6 +61,12 @@ public:
 
     timeout_t timeout() const;
     Config& timeout(timeout_t timeout);
+
+    const HttpBasicAuth::opt_t& auth() const;
+    Config& auth(const HttpBasicAuth& auth);
+    Config& auth(const HttpBasicAuth::username_t& username,
+                 const HttpBasicAuth::password_t& password);
+    Config& remove_auth();
 
 private:
     struct ConfigImpl;

@@ -61,6 +61,15 @@ struct Config::ConfigImpl {
     timeout_t _timeout = 0;
     timeout_t timeout() const { return _timeout; }
     void timeout(const timeout_t timeout) { _timeout = timeout; }
+
+    HttpBasicAuth::opt_t _auth = std::nullopt;
+    const HttpBasicAuth::opt_t& auth() const { return _auth; }
+    void auth(const HttpBasicAuth& auth) { _auth.emplace(auth); }
+    void auth(const HttpBasicAuth::username_t& username,
+              const HttpBasicAuth::password_t& password) {
+        _auth.emplace(username, password);
+    }
+    void remove_auth() { _auth = std::nullopt; }
 };
 
 Config::Config() : impl{std::make_unique<ConfigImpl>()} {}
@@ -125,5 +134,23 @@ Config& Config::data_field(const Config::data_field_name_t& field,
 Config::timeout_t Config::timeout() const { return impl->timeout(); }
 Config& Config::timeout(const timeout_t timeout) {
     impl->timeout(timeout);
+    return *this;
+}
+
+const HttpBasicAuth::opt_t& Config::auth() const { return impl->auth(); }
+
+Config& Config::auth(const HttpBasicAuth& auth) {
+    impl->auth(auth);
+    return *this;
+}
+
+Config& Config::auth(const HttpBasicAuth::username_t& username,
+                     const HttpBasicAuth::password_t& password) {
+    impl->auth(username, password);
+    return *this;
+}
+
+Config& Config::remove_auth() {
+    impl->remove_auth();
     return *this;
 }

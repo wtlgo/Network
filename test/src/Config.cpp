@@ -1,4 +1,5 @@
 #include <wtlgo/network/Config.hpp>
+#include <wtlgo/network/HttpBasicAuth.hpp>
 #include <gtest/gtest.h>
 #include <string>
 #include "utility.hpp"
@@ -149,4 +150,48 @@ TEST(Config, Timeout) {
     const Config::timeout_t test_timeout = random_unsigned();
     ASSERT_EQ(&config.timeout(test_timeout), &config);
     ASSERT_EQ(config.timeout(), test_timeout);
+}
+
+TEST(Config, AuthObject) {
+    using namespace wtlgo::network;
+    Config config;
+
+    ASSERT_EQ(config.auth().has_value(), false);
+
+    const HttpBasicAuth test_auth{random_string(50), random_string(50)};
+
+    ASSERT_EQ(&config.auth(test_auth), &config);
+    ASSERT_EQ(config.auth().has_value(), true);
+    ASSERT_EQ(config.auth().value().username(), test_auth.username());
+    ASSERT_EQ(config.auth().value().password(), test_auth.password());
+}
+
+TEST(Config, AuthFields) {
+    using namespace wtlgo::network;
+    Config config;
+
+    ASSERT_EQ(config.auth().has_value(), false);
+
+    const HttpBasicAuth::username_t test_username = random_string(50);
+    const HttpBasicAuth::password_t test_password = random_string(50);
+
+    ASSERT_EQ(&config.auth(test_username, test_password), &config);
+    ASSERT_EQ(config.auth().has_value(), true);
+    ASSERT_EQ(config.auth().value().username(), test_username);
+    ASSERT_EQ(config.auth().value().password(), test_password);
+}
+
+TEST(Config, AuthRemove) {
+    using namespace wtlgo::network;
+    Config config;
+
+    ASSERT_EQ(config.auth().has_value(), false);
+
+    const HttpBasicAuth test_auth{random_string(50), random_string(50)};
+
+    ASSERT_EQ(&config.auth(test_auth), &config);
+    ASSERT_EQ(config.auth().has_value(), true);
+
+    ASSERT_EQ(&config.remove_auth(), &config);
+    ASSERT_EQ(config.auth().has_value(), false);
 }

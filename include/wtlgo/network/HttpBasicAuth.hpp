@@ -3,6 +3,8 @@
 
 #include <string>
 #include <memory>
+#include <optional>
+#include <functional>
 
 namespace wtlgo {
 namespace network {
@@ -11,8 +13,11 @@ public:
     using username_t = std::string;
     using password_t = std::string;
 
+    using opt_t = std::optional<HttpBasicAuth>;
+
     HttpBasicAuth();
     HttpBasicAuth(const username_t& username, const password_t& password);
+    HttpBasicAuth(const HttpBasicAuth&);
     virtual ~HttpBasicAuth();
 
     const username_t& username() const;
