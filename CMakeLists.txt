@@ -16,6 +16,7 @@ set(PUBLIC_HEADERS
         "include/wtlgo/network/HttpMethod.hpp"
         "include/wtlgo/network/CurlController.hpp"
         "include/wtlgo/network/Client.hpp"
+        "include/wtlgo/network/HttpBasicAuth.hpp"
 )
 
 set(SOURCES
@@ -23,6 +24,7 @@ set(SOURCES
         "src/Config.cpp"
         "src/CurlController.cpp"
         "src/Client.cpp"
+        "src/HttpBasicAuth.cpp"
 )
 
 add_library(Network ${SOURCES})
