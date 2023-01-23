@@ -34,6 +34,8 @@ private:
     DefaultConfig(const std::unique_ptr<Impl>&);
     DefaultConfig(std::unique_ptr<Impl>&&);
 };
+
+using DConfig = DefaultConfig;
 }
 }
 
