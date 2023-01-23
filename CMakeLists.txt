@@ -12,19 +12,14 @@ find_package(CURL REQUIRED)
 
 set(PUBLIC_HEADERS
         "include/wtlgo/NetworkOld.hpp"
-        "include/wtlgo/network/Config.hpp"
-        "include/wtlgo/network/HttpMethod.hpp"
-        "include/wtlgo/network/CurlController.hpp"
-        "include/wtlgo/network/Client.hpp"
+
         "include/wtlgo/network/HttpBasicAuth.hpp"
+        "include/wtlgo/network/DefaultHttpBasicAuth.hpp"
 )
 
 set(SOURCES
         "src/NetworkOld.cpp"
-        "src/Config.cpp"
-        "src/CurlController.cpp"
-        "src/Client.cpp"
-        "src/HttpBasicAuth.cpp"
+        "src/DefaultHttpBasicAuth.cpp"
 )
 
 add_library(Network ${SOURCES})
@@ -33,7 +28,6 @@ target_link_libraries(Network PUBLIC CURL::libcurl)
 
 target_include_directories(Network PUBLIC include/)
 target_include_directories(Network PRIVATE include/)
-
 
 set_target_properties(Network PROPERTIES 
         PUBLIC_HEADER "${PUBLIC_HEADERS}"
