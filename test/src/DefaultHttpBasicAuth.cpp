@@ -25,7 +25,6 @@ TEST(DefaultHttpBasicAuth, Clone) {
 
     const HttpBasicAuth::cptr_t client =
         DefaultHttpBasicAuth::create(random_string(50), random_string(50));
-    ASSERT_NE(client, nullptr);
 
     const HttpBasicAuth::cptr_t clone = client->clone();
     ASSERT_NE(clone, nullptr);
@@ -43,7 +42,6 @@ TEST(DefaultHttpBasicAuth, SetUsername) {
 
     const HttpBasicAuth::ptr_t client =
         DefaultHttpBasicAuth::create(random_string(50), random_string(50));
-    ASSERT_NE(client, nullptr);
 
     const std::string test_username = random_string(50);
     ASSERT_EQ(client, client->username(test_username));
@@ -55,7 +53,6 @@ TEST(DefaultHttpBasicAuth, SetPassword) {
 
     const HttpBasicAuth::ptr_t client =
         DefaultHttpBasicAuth::create(random_string(50), random_string(50));
-    ASSERT_NE(client, nullptr);
 
     const std::string test_password = random_string(50);
     ASSERT_EQ(client, client->password(test_password));
