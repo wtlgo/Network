@@ -19,6 +19,10 @@ public:
 
     Config::ptr_t clone() const override;
 
+    Config::url_opt_ref_t url() const;
+    Config::ptr_t url(Config::url_ref_t);
+    Config::ptr_t clear_url();
+
 protected:
     DefaultConfig();
 
