@@ -32,14 +32,14 @@ public:
 
 DefaultHttpBasicAuth::~DefaultHttpBasicAuth() = default;
 
-DefaultHttpBasicAuth::sptr_t DefaultHttpBasicAuth::create(
+DefaultHttpBasicAuth::ptr_t DefaultHttpBasicAuth::create(
     const HttpBasicAuth::username_ref_t username,
     const HttpBasicAuth::password_ref_t password) {
     return std::shared_ptr<DefaultHttpBasicAuth>(
         new DefaultHttpBasicAuth{username, password});
 }
 
-HttpBasicAuth::sptr_t DefaultHttpBasicAuth::clone() const {
+HttpBasicAuth::ptr_t DefaultHttpBasicAuth::clone() const {
     return std::shared_ptr<DefaultHttpBasicAuth>(
         new DefaultHttpBasicAuth{impl});
 }
@@ -48,7 +48,7 @@ HttpBasicAuth::username_ref_t DefaultHttpBasicAuth::username() const {
     return impl->username();
 }
 
-HttpBasicAuth::sptr_t DefaultHttpBasicAuth::username(
+HttpBasicAuth::ptr_t DefaultHttpBasicAuth::username(
     const HttpBasicAuth::username_ref_t username) {
     impl->username(username);
     return shared_from_this();
@@ -58,7 +58,7 @@ HttpBasicAuth::password_ref_t DefaultHttpBasicAuth::password() const {
     return impl->password();
 }
 
-HttpBasicAuth::sptr_t DefaultHttpBasicAuth::password(
+HttpBasicAuth::ptr_t DefaultHttpBasicAuth::password(
     const HttpBasicAuth::password_ref_t password) {
     impl->password(password);
     return shared_from_this();
