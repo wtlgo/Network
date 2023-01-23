@@ -37,15 +37,6 @@ TEST(DefaultConfig, Merge) {
     ASSERT_NE(mconfig, lconfig);
 }
 
-TEST(DefaultConfig, MergeFail) {
-    using namespace wtlgo::network;
-
-    const Config::cptr_t config = DefaultConfig::create();
-
-    Config::cptr_t mconfig;
-    ASSERT_THROW(mconfig = config->merge(nullptr), std::invalid_argument);
-}
-
 TEST(DefaultConfig, UrlSet) {
     using namespace wtlgo::network;
 
@@ -106,7 +97,6 @@ TEST(DefaultConfig, UrlMergeRight) {
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->url(), rconfig->url());
-    ASSERT_NE(mconfig->url()->data(), rconfig->url()->data());
 }
 
 TEST(DefaultConfig, UrlMergeLeft) {
@@ -118,7 +108,6 @@ TEST(DefaultConfig, UrlMergeLeft) {
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->url(), lconfig->url());
-    ASSERT_NE(mconfig->url()->data(), lconfig->url()->data());
 }
 
 TEST(DefaultConfig, UrlMergeFull) {
@@ -131,5 +120,4 @@ TEST(DefaultConfig, UrlMergeFull) {
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->url(), rconfig->url());
-    ASSERT_NE(mconfig->url()->data(), rconfig->url()->data());
 }

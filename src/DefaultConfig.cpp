@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include <utility>
 
+#include "./internal/MergedConfig.hpp"
+
 #include <wtlgo/network/Config.hpp>
 #include <wtlgo/network/DefaultConfig.hpp>
 
@@ -14,6 +16,10 @@ private:
     std::optional<std::string> _url;
 
 public:
+    Impl() = default;
+    Impl(const Impl&) = default;
+    Impl(const Config::cptr_t config) : _url{config->url()} {}
+
     std::unique_ptr<Impl> merge(const Config::cptr_t rconfig) const {
         if (rconfig == nullptr) {
             throw std::invalid_argument{"nullptr is provided!"};
@@ -39,13 +45,14 @@ DefaultConfig::ptr_t DefaultConfig::create() {
     return std::shared_ptr<DefaultConfig>{new DefaultConfig{}};
 }
 
-Config::ptr_t DefaultConfig::clone() const {
-    return std::shared_ptr<DefaultConfig>{new DefaultConfig{impl}};
+DefaultConfig::ptr_t DefaultConfig::clone(const Config::cptr_t config) {
+    return std::shared_ptr<DefaultConfig>{new DefaultConfig{config}};
 }
 
+Config::ptr_t DefaultConfig::clone() const { return clone(shared_from_this()); }
+
 Config::ptr_t DefaultConfig::merge(const Config::cptr_t rconfig) const {
-    return std::shared_ptr<DefaultConfig>{
-        new DefaultConfig{impl->merge(rconfig)}};
+    return internal::MergedConfig::merge(shared_from_this(), rconfig);
 }
 
 Config::url_opt_ref_t DefaultConfig::url() const { return impl->url(); }
@@ -62,8 +69,5 @@ Config::ptr_t DefaultConfig::clear_url() {
 
 DefaultConfig::DefaultConfig() : impl{std::make_unique<Impl>()} {}
 
-DefaultConfig::DefaultConfig(const std::unique_ptr<Impl>& impl)
-    : impl{std::make_unique<Impl>(*impl)} {}
-
-DefaultConfig::DefaultConfig(std::unique_ptr<Impl>&& impl)
-    : impl{std::move(impl)} {}
+DefaultConfig::DefaultConfig(const Config::cptr_t config)
+    : impl{std::make_unique<Impl>(config)} {}

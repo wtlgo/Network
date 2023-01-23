@@ -26,6 +26,12 @@ set(SOURCES
         "src/NetworkOld.cpp"
         "src/DefaultHttpBasicAuth.cpp"
         "src/DefaultConfig.cpp"
+
+        "src/internal/MergedConfig.hpp"
+        "src/internal/MergedConfig.cpp"
+
+        "src/internal/CopyOnWriteConfig.hpp"
+        "src/internal/CopyOnWriteConfig.cpp"
 )
 
 add_library(Network ${SOURCES})

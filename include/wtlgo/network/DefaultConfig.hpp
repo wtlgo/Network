@@ -16,6 +16,7 @@ public:
     virtual ~DefaultConfig();
 
     [[nodiscard]] static DefaultConfig::ptr_t create();
+    [[nodiscard]] static DefaultConfig::ptr_t clone(Config::cptr_t);
 
     Config::ptr_t clone() const override;
     Config::ptr_t merge(Config::cptr_t) const override;
@@ -26,13 +27,11 @@ public:
 
 protected:
     DefaultConfig();
+    DefaultConfig(const Config::cptr_t);
 
 private:
     struct Impl;
     const std::unique_ptr<Impl> impl;
-
-    DefaultConfig(const std::unique_ptr<Impl>&);
-    DefaultConfig(std::unique_ptr<Impl>&&);
 };
 
 using DConfig = DefaultConfig;
