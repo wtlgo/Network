@@ -20,6 +20,21 @@ TEST(DefaultHttpBasicAuth, Create) {
     ASSERT_EQ(client->password(), test_password);
 }
 
+TEST(DefaultHttpBasicAuth, Clone) {
+    using namespace wtlgo::network;
+
+    const HttpBasicAuth::cptr_t client =
+        DefaultHttpBasicAuth::create(random_string(50), random_string(50));
+    ASSERT_NE(client, nullptr);
+
+    const HttpBasicAuth::cptr_t clone = client->clone();
+    ASSERT_NE(clone, nullptr);
+    ASSERT_NE(clone, client);
+
+    ASSERT_EQ(client->username(), clone->username());
+    ASSERT_EQ(client->password(), clone->password());
+}
+
 TEST(DefaultHttpBasicAuth, SetUsername) {
     using namespace wtlgo::network;
 
