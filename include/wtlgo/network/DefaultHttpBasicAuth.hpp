@@ -14,7 +14,7 @@ public:
     using sptr_t = std::shared_ptr<DefaultHttpBasicAuth>;
     using csptr_t = std::shared_ptr<const DefaultHttpBasicAuth>;
 
-    ~DefaultHttpBasicAuth();
+    virtual ~DefaultHttpBasicAuth();
 
     [[nodiscard]] static DefaultHttpBasicAuth::sptr_t create(
         HttpBasicAuth::username_ref_t username,
