@@ -12,7 +12,9 @@ struct Config {
     using cptr_t = std::shared_ptr<const Config>;
 
     virtual ~Config() = default;
-    virtual ptr_t clone() const = 0;
+
+    [[nodiscard]] virtual ptr_t clone() const = 0;
+    [[nodiscard]] virtual ptr_t merge(cptr_t) const = 0;
 
     using url_ref_t = std::string_view;
     using url_opt_ref_t = std::optional<url_ref_t>;

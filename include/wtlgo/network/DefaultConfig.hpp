@@ -18,6 +18,7 @@ public:
     [[nodiscard]] static DefaultConfig::ptr_t create();
 
     Config::ptr_t clone() const override;
+    Config::ptr_t merge(Config::cptr_t) const override;
 
     Config::url_opt_ref_t url() const;
     Config::ptr_t url(Config::url_ref_t);
@@ -31,6 +32,7 @@ private:
     const std::unique_ptr<Impl> impl;
 
     DefaultConfig(const std::unique_ptr<Impl>&);
+    DefaultConfig(std::unique_ptr<Impl>&&);
 };
 }
 }

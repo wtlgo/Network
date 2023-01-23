@@ -3,6 +3,7 @@
 
 #include <string>
 #include <optional>
+#include <stdexcept>
 
 #include <wtlgo/network/Config.hpp>
 #include <wtlgo/network/DefaultConfig.hpp>
@@ -22,6 +23,27 @@ TEST(DefaultConfig, Clone) {
     const Config::cptr_t clone = config->clone();
     ASSERT_NE(clone, nullptr);
     ASSERT_NE(clone, config);
+}
+
+TEST(DefaultConfig, Merge) {
+    using namespace wtlgo::network;
+
+    const Config::cptr_t lconfig = DefaultConfig::create();
+    const Config::cptr_t rconfig = DefaultConfig::create();
+    const Config::cptr_t mconfig = lconfig->merge(rconfig);
+
+    ASSERT_NE(mconfig, nullptr);
+    ASSERT_NE(mconfig, lconfig);
+    ASSERT_NE(mconfig, lconfig);
+}
+
+TEST(DefaultConfig, MergeFail) {
+    using namespace wtlgo::network;
+
+    const Config::cptr_t config = DefaultConfig::create();
+
+    Config::cptr_t mconfig;
+    ASSERT_THROW(mconfig = config->merge(nullptr), std::invalid_argument);
 }
 
 TEST(DefaultConfig, UrlSet) {
@@ -62,5 +84,52 @@ TEST(DefaultConfig, UrlCloneValue) {
     const Config::cptr_t clone = config->clone();
 
     ASSERT_EQ(clone->url(), config->url());
-    ASSERT_NE(clone->url().value().data(), config->url().value().data());
+    ASSERT_NE(clone->url()->data(), config->url()->data());
+}
+
+TEST(DefaultConfig, UrlMergeEmpty) {
+    using namespace wtlgo::network;
+
+    const Config::cptr_t lconfig = DefaultConfig::create()->clear_url();
+    const Config::cptr_t rconfig = DefaultConfig::create()->clear_url();
+    const Config::cptr_t mconfig = lconfig->merge(rconfig);
+
+    ASSERT_EQ(mconfig->url(), std::nullopt);
+}
+
+TEST(DefaultConfig, UrlMergeRight) {
+    using namespace wtlgo::network;
+
+    const Config::cptr_t lconfig = DefaultConfig::create()->clear_url();
+    const Config::cptr_t rconfig =
+        DefaultConfig::create()->url(random_string(50));
+    const Config::cptr_t mconfig = lconfig->merge(rconfig);
+
+    ASSERT_EQ(mconfig->url(), rconfig->url());
+    ASSERT_NE(mconfig->url()->data(), rconfig->url()->data());
+}
+
+TEST(DefaultConfig, UrlMergeLeft) {
+    using namespace wtlgo::network;
+
+    const Config::cptr_t lconfig =
+        DefaultConfig::create()->url(random_string(50));
+    const Config::cptr_t rconfig = DefaultConfig::create()->clear_url();
+    const Config::cptr_t mconfig = lconfig->merge(rconfig);
+
+    ASSERT_EQ(mconfig->url(), lconfig->url());
+    ASSERT_NE(mconfig->url()->data(), lconfig->url()->data());
+}
+
+TEST(DefaultConfig, UrlMergeFull) {
+    using namespace wtlgo::network;
+
+    const Config::cptr_t lconfig =
+        DefaultConfig::create()->url(random_string(50));
+    const Config::cptr_t rconfig =
+        DefaultConfig::create()->url(random_string(50));
+    const Config::cptr_t mconfig = lconfig->merge(rconfig);
+
+    ASSERT_EQ(mconfig->url(), rconfig->url());
+    ASSERT_NE(mconfig->url()->data(), rconfig->url()->data());
 }
