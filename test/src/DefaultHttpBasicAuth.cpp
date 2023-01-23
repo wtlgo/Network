@@ -32,7 +32,10 @@ TEST(DefaultHttpBasicAuth, Clone) {
     ASSERT_NE(clone, client);
 
     ASSERT_EQ(client->username(), clone->username());
+    ASSERT_NE(client->username().data(), clone->username().data());
+
     ASSERT_EQ(client->password(), clone->password());
+    ASSERT_NE(client->password().data(), clone->password().data());
 }
 
 TEST(DefaultHttpBasicAuth, SetUsername) {
