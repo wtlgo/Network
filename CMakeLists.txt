@@ -17,11 +17,15 @@ set(PUBLIC_HEADERS
         "include/wtlgo/network/DefaultHttpBasicAuth.hpp"
 
         "include/wtlgo/network/HttpMethod.hpp"
+
+        "include/wtlgo/network/Config.hpp"
+        "include/wtlgo/network/DefaultConfig.hpp"
 )
 
 set(SOURCES
         "src/NetworkOld.cpp"
         "src/DefaultHttpBasicAuth.cpp"
+        "src/DefaultConfig.cpp"
 )
 
 add_library(Network ${SOURCES})
