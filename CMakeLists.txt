@@ -15,6 +15,8 @@ set(PUBLIC_HEADERS
 
         "include/wtlgo/network/HttpBasicAuth.hpp"
         "include/wtlgo/network/DefaultHttpBasicAuth.hpp"
+
+        "include/wtlgo/network/HttpMethod.hpp"
 )
 
 set(SOURCES
