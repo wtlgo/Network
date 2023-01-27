@@ -25,6 +25,10 @@ public:
     Config::ptr_t url(Config::url_ref_t) override;
     Config::ptr_t clear_url() override;
 
+    Config::method_opt_t method() const override;
+    Config::ptr_t method(Config::method_t) override;
+    Config::ptr_t clear_method() override;
+
 protected:
     CopyOnWriteConfig(Config::cptr_t);
 

@@ -13,7 +13,7 @@ private:
     Config::cptr_t solid;
     Config::ptr_t liquid;
 
-    void solidify() {
+    void liquify() {
         if (!solid) return;
 
         liquid = DefaultConfig::clone(solid);
@@ -22,7 +22,7 @@ private:
 
     Config::cptr_t cptr() const { return solid ? solid : liquid; }
     Config::ptr_t ptr() {
-        solidify();
+        liquify();
         return liquid;
     }
 
@@ -32,6 +32,10 @@ public:
     Config::url_opt_ref_t url() const { return cptr()->url(); }
     void url(const Config::url_ref_t url) { ptr()->url(url); }
     void clear_url() { ptr()->clear_url(); }
+
+    Config::method_opt_t method() const { return cptr()->method(); }
+    void method(const Config::method_t method) { ptr()->method(method); }
+    void clear_method() { ptr()->clear_method(); }
 };
 
 CopyOnWriteConfig::~CopyOnWriteConfig() = default;
@@ -56,6 +60,20 @@ Config::ptr_t CopyOnWriteConfig::url(const Config::url_ref_t url) {
 
 Config::ptr_t CopyOnWriteConfig::clear_url() {
     impl->clear_url();
+    return shared_from_this();
+}
+
+Config::method_opt_t CopyOnWriteConfig::method() const {
+    return impl->method();
+}
+
+Config::ptr_t CopyOnWriteConfig::method(const Config::method_t method) {
+    impl->method(method);
+    return shared_from_this();
+}
+
+Config::ptr_t CopyOnWriteConfig::clear_method() {
+    impl->clear_method();
     return shared_from_this();
 }
 

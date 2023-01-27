@@ -5,6 +5,8 @@
 #include <string_view>
 #include <optional>
 
+#include <wtlgo/network/HttpMethod.hpp>
+
 namespace wtlgo {
 namespace network {
 struct Config {
@@ -22,6 +24,13 @@ struct Config {
     virtual url_opt_ref_t url() const = 0;
     virtual ptr_t url(url_ref_t) = 0;
     virtual ptr_t clear_url() = 0;
+
+    using method_t = HttpMethod;
+    using method_opt_t = std::optional<method_t>;
+
+    virtual method_opt_t method() const = 0;
+    virtual ptr_t method(method_t) = 0;
+    virtual ptr_t clear_method() = 0;
 };
 }
 }

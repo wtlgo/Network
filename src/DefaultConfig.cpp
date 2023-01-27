@@ -5,8 +5,8 @@
 #include <utility>
 
 #include "./internal/MergedConfig.hpp"
-
 #include <wtlgo/network/Config.hpp>
+
 #include <wtlgo/network/DefaultConfig.hpp>
 
 using namespace wtlgo::network;
@@ -14,11 +14,13 @@ using namespace wtlgo::network;
 struct DefaultConfig::Impl {
 private:
     std::optional<std::string> _url;
+    Config::method_opt_t _method;
 
 public:
     Impl() = default;
     Impl(const Impl&) = default;
-    Impl(const Config::cptr_t config) : _url{config->url()} {}
+    Impl(const Config::cptr_t config)
+        : _url{config->url()}, _method{config->method()} {}
 
     std::unique_ptr<Impl> merge(const Config::cptr_t rconfig) const {
         if (rconfig == nullptr) {
@@ -37,6 +39,10 @@ public:
     Config::url_opt_ref_t url() const { return _url; }
     void url(const Config::url_ref_t url) { _url = url; }
     void clear_url() { _url = std::nullopt; }
+
+    Config::method_opt_t method() const { return _method; }
+    void method(const Config::method_t method) { _method = method; }
+    void clear_method() { _method = std::nullopt; }
 };
 
 DefaultConfig::~DefaultConfig() = default;
@@ -64,6 +70,18 @@ Config::ptr_t DefaultConfig::url(const Config::url_ref_t url) {
 
 Config::ptr_t DefaultConfig::clear_url() {
     impl->clear_url();
+    return shared_from_this();
+}
+
+Config::method_opt_t DefaultConfig::method() const { return impl->method(); }
+
+Config::ptr_t DefaultConfig::method(const Config::method_t method) {
+    impl->method(method);
+    return shared_from_this();
+}
+
+Config::ptr_t DefaultConfig::clear_method() {
+    impl->clear_method();
     return shared_from_this();
 }
 

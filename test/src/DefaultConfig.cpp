@@ -121,3 +121,123 @@ TEST(DefaultConfig, UrlMergeFull) {
 
     ASSERT_EQ(mconfig->url(), rconfig->url());
 }
+
+TEST(DefaultConfig, MethodDefault) {
+    using namespace wtlgo::network;
+
+    const Config::cptr_t config = DefaultConfig::create();
+    ASSERT_EQ(config->method(), std::nullopt);
+}
+
+TEST(DefaultConfig, MethodSet) {
+    using namespace wtlgo::network;
+
+    const Config::ptr_t config = DefaultConfig::create();
+
+    for (const HttpMethod test_method :
+         {HttpMethod::GET, HttpMethod::POST, HttpMethod::PATCH, HttpMethod::PUT,
+          HttpMethod::DELETE}) {
+        ASSERT_EQ(config, config->method(test_method));
+        ASSERT_EQ(config->method(), test_method);
+    }
+}
+
+TEST(DefaultConfig, MethodClear) {
+    using namespace wtlgo::network;
+
+    for (const HttpMethod test_method :
+         {HttpMethod::GET, HttpMethod::POST, HttpMethod::PATCH, HttpMethod::PUT,
+          HttpMethod::DELETE}) {
+        const Config::ptr_t config =
+            DefaultConfig::create()->method(test_method);
+
+        ASSERT_EQ(config, config->clear_method());
+        ASSERT_EQ(config->method(), std::nullopt);
+    }
+}
+
+TEST(DefaultConfig, MethodCloneEmpty) {
+    using namespace wtlgo::network;
+
+    const Config::cptr_t config = DefaultConfig::create()->clear_method();
+    const Config::cptr_t clone = config->clone();
+
+    ASSERT_EQ(clone->method(), std::nullopt);
+}
+
+TEST(DefaultConfig, MethodCloneValue) {
+    using namespace wtlgo::network;
+
+    for (const HttpMethod test_method :
+         {HttpMethod::GET, HttpMethod::POST, HttpMethod::PATCH, HttpMethod::PUT,
+          HttpMethod::DELETE}) {
+        const Config::cptr_t config =
+            DefaultConfig::create()->method(test_method);
+        const Config::cptr_t clone = config->clone();
+
+        ASSERT_EQ(clone->method(), test_method);
+    }
+}
+
+TEST(DefaultConfig, MethodMergeEmpty) {
+    using namespace wtlgo::network;
+
+    const Config::cptr_t lconfig = DefaultConfig::create()->clear_method();
+    const Config::cptr_t rconfig = DefaultConfig::create()->clear_method();
+    const Config::cptr_t mconfig = lconfig->merge(rconfig);
+
+    ASSERT_EQ(rconfig->method(), std::nullopt);
+}
+
+TEST(DefaultConfig, MethodMergeLeft) {
+    using namespace wtlgo::network;
+
+    const Config::cptr_t rconfig = DefaultConfig::create()->clear_method();
+
+    for (const HttpMethod test_method :
+         {HttpMethod::GET, HttpMethod::POST, HttpMethod::PATCH, HttpMethod::PUT,
+          HttpMethod::DELETE}) {
+        const Config::cptr_t lconfig =
+            DefaultConfig::create()->method(test_method);
+        const Config::cptr_t mconfig = lconfig->merge(rconfig);
+
+        ASSERT_EQ(mconfig->method(), test_method);
+    }
+}
+
+TEST(DefaultConfig, MethodMergeRight) {
+    using namespace wtlgo::network;
+
+    const Config::cptr_t lconfig = DefaultConfig::create()->clear_method();
+
+    for (const HttpMethod test_method :
+         {HttpMethod::GET, HttpMethod::POST, HttpMethod::PATCH, HttpMethod::PUT,
+          HttpMethod::DELETE}) {
+        const Config::cptr_t rconfig =
+            DefaultConfig::create()->method(test_method);
+        const Config::cptr_t mconfig = lconfig->merge(rconfig);
+
+        ASSERT_EQ(mconfig->method(), test_method);
+    }
+}
+
+TEST(DefaultConfig, MethodMergeFull) {
+    using namespace wtlgo::network;
+
+    for (const HttpMethod ltest_method :
+         {HttpMethod::GET, HttpMethod::POST, HttpMethod::PATCH, HttpMethod::PUT,
+          HttpMethod::DELETE}) {
+        const Config::cptr_t lconfig =
+            DefaultConfig::create()->method(ltest_method);
+
+        for (const HttpMethod rtest_method :
+             {HttpMethod::GET, HttpMethod::POST, HttpMethod::PATCH,
+              HttpMethod::PUT, HttpMethod::DELETE}) {
+            const Config::cptr_t rconfig =
+                DefaultConfig::create()->method(rtest_method);
+            const Config::cptr_t mconfig = lconfig->merge(rconfig);
+
+            ASSERT_EQ(mconfig->method(), rtest_method);
+        }
+    }
+}
