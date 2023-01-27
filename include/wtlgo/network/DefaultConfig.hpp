@@ -21,9 +21,9 @@ public:
     Config::ptr_t clone() const override;
     Config::ptr_t merge(Config::cptr_t) const override;
 
-    Config::url_opt_ref_t url() const;
-    Config::ptr_t url(Config::url_ref_t);
-    Config::ptr_t clear_url();
+    Config::url_opt_ref_t url() const override;
+    Config::ptr_t url(Config::url_ref_t) override;
+    Config::ptr_t clear_url() override;
 
 protected:
     DefaultConfig();
