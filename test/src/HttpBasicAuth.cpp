@@ -4,27 +4,27 @@
 #include <string>
 
 #include <wtlgo/network/Auth.hpp>
-#include <wtlgo/network/DefaultHttpBasicAuth.hpp>
+#include <wtlgo/network/HttpBasicAuth.hpp>
 
-TEST(DefaultHttpBasicAuth, Create) {
+TEST(HttpBasicAuth, Create) {
     using namespace wtlgo::network;
 
     const std::string test_username = random_string();
     const std::string test_password = random_string();
 
     const Auth::cptr_t client =
-        DefaultHttpBasicAuth::create(test_username, test_password);
+        HttpBasicAuth::create(test_username, test_password);
 
     ASSERT_NE(client, nullptr);
     ASSERT_EQ(client->username(), test_username);
     ASSERT_EQ(client->password(), test_password);
 }
 
-TEST(DefaultHttpBasicAuth, Clone) {
+TEST(HttpBasicAuth, Clone) {
     using namespace wtlgo::network;
 
     const Auth::cptr_t client =
-        DefaultHttpBasicAuth::create(random_string(), random_string());
+        HttpBasicAuth::create(random_string(), random_string());
 
     const Auth::cptr_t clone = client->clone();
     ASSERT_NE(clone, nullptr);
@@ -37,22 +37,22 @@ TEST(DefaultHttpBasicAuth, Clone) {
     ASSERT_NE(client->password().data(), clone->password().data());
 }
 
-TEST(DefaultHttpBasicAuth, SetUsername) {
+TEST(HttpBasicAuth, SetUsername) {
     using namespace wtlgo::network;
 
     const Auth::ptr_t client =
-        DefaultHttpBasicAuth::create(random_string(), random_string());
+        HttpBasicAuth::create(random_string(), random_string());
 
     const std::string test_username = random_string();
     ASSERT_EQ(client, client->username(test_username));
     ASSERT_EQ(client->username(), test_username);
 }
 
-TEST(DefaultHttpBasicAuth, SetPassword) {
+TEST(HttpBasicAuth, SetPassword) {
     using namespace wtlgo::network;
 
     const Auth::ptr_t client =
-        DefaultHttpBasicAuth::create(random_string(), random_string());
+        HttpBasicAuth::create(random_string(), random_string());
 
     const std::string test_password = random_string();
     ASSERT_EQ(client, client->password(test_password));
