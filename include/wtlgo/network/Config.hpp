@@ -31,6 +31,10 @@ struct Config {
     virtual method_opt_t method() const = 0;
     virtual ptr_t method(method_t) = 0;
     virtual ptr_t clear_method() = 0;
+
+    virtual url_opt_ref_t base_url() const = 0;
+    virtual ptr_t base_url(url_ref_t) = 0;
+    virtual ptr_t clear_base_url() = 0;
 };
 }
 }

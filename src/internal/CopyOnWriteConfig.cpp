@@ -36,6 +36,10 @@ public:
     Config::method_opt_t method() const { return cptr()->method(); }
     void method(const Config::method_t method) { ptr()->method(method); }
     void clear_method() { ptr()->clear_method(); }
+
+    Config::url_opt_ref_t base_url() const { return cptr()->base_url(); }
+    void base_url(const Config::url_ref_t url) { ptr()->base_url(url); }
+    void clear_base_url() { ptr()->clear_base_url(); }
 };
 
 CopyOnWriteConfig::~CopyOnWriteConfig() = default;
@@ -74,6 +78,20 @@ Config::ptr_t CopyOnWriteConfig::method(const Config::method_t method) {
 
 Config::ptr_t CopyOnWriteConfig::clear_method() {
     impl->clear_method();
+    return shared_from_this();
+}
+
+Config::url_opt_ref_t CopyOnWriteConfig::base_url() const {
+    return impl->base_url();
+}
+
+Config::ptr_t CopyOnWriteConfig::base_url(const Config::url_ref_t url) {
+    impl->base_url(url);
+    return shared_from_this();
+}
+
+Config::ptr_t CopyOnWriteConfig::clear_base_url() {
+    impl->clear_base_url();
     return shared_from_this();
 }
 

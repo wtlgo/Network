@@ -29,6 +29,10 @@ public:
     Config::ptr_t method(Config::method_t) override;
     Config::ptr_t clear_method() override;
 
+    Config::url_opt_ref_t base_url() const override;
+    Config::ptr_t base_url(Config::url_ref_t) override;
+    Config::ptr_t clear_base_url() override;
+
 protected:
     DefaultConfig();
     DefaultConfig(const Config::cptr_t);

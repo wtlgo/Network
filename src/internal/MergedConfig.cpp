@@ -45,6 +45,20 @@ public:
         lhs->clear_method();
         rhs->clear_method();
     }
+
+    Config::url_opt_ref_t base_url() const {
+        return rhs->base_url() ? rhs->base_url() : lhs->base_url();
+    }
+
+    void base_url(const Config::url_ref_t url) {
+        lhs->clear_base_url();
+        rhs->base_url(url);
+    }
+
+    void clear_base_url() {
+        lhs->clear_base_url();
+        rhs->clear_base_url();
+    }
 };
 
 MergedConfig::~MergedConfig() = default;
@@ -83,6 +97,20 @@ Config::ptr_t MergedConfig::method(const Config::method_t method) {
 
 Config::ptr_t MergedConfig::clear_method() {
     impl->clear_method();
+    return shared_from_this();
+}
+
+Config::url_opt_ref_t MergedConfig::base_url() const {
+    return impl->base_url();
+}
+
+Config::ptr_t MergedConfig::base_url(const Config::url_ref_t url) {
+    impl->base_url(url);
+    return shared_from_this();
+}
+
+Config::ptr_t MergedConfig::clear_base_url() {
+    impl->clear_base_url();
     return shared_from_this();
 }
 
