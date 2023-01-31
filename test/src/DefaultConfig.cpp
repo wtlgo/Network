@@ -42,7 +42,7 @@ TEST(DefaultConfig, UrlSet) {
 
     const Config::ptr_t config = DefaultConfig::create();
 
-    const std::string test_url = random_string(50);
+    const std::string test_url = random_string();
 
     ASSERT_EQ(config, config->url(test_url));
     ASSERT_EQ(config->url(), test_url);
@@ -52,7 +52,7 @@ TEST(DefaultConfig, UrlClear) {
     using namespace wtlgo::network;
 
     const Config::ptr_t config =
-        DefaultConfig::create()->url(random_string(50));
+        DefaultConfig::create()->url(random_string());
 
     ASSERT_EQ(config, config->clear_url());
     ASSERT_EQ(config->url(), std::nullopt);
@@ -71,7 +71,7 @@ TEST(DefaultConfig, UrlCloneValue) {
     using namespace wtlgo::network;
 
     const Config::cptr_t config =
-        DefaultConfig::create()->url(random_string(50));
+        DefaultConfig::create()->url(random_string());
     const Config::cptr_t clone = config->clone();
 
     ASSERT_EQ(clone->url(), config->url());
@@ -93,7 +93,7 @@ TEST(DefaultConfig, UrlMergeRight) {
 
     const Config::cptr_t lconfig = DefaultConfig::create()->clear_url();
     const Config::cptr_t rconfig =
-        DefaultConfig::create()->url(random_string(50));
+        DefaultConfig::create()->url(random_string());
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->url(), rconfig->url());
@@ -103,7 +103,7 @@ TEST(DefaultConfig, UrlMergeLeft) {
     using namespace wtlgo::network;
 
     const Config::cptr_t lconfig =
-        DefaultConfig::create()->url(random_string(50));
+        DefaultConfig::create()->url(random_string());
     const Config::cptr_t rconfig = DefaultConfig::create()->clear_url();
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
@@ -114,9 +114,9 @@ TEST(DefaultConfig, UrlMergeFull) {
     using namespace wtlgo::network;
 
     const Config::cptr_t lconfig =
-        DefaultConfig::create()->url(random_string(50));
+        DefaultConfig::create()->url(random_string());
     const Config::cptr_t rconfig =
-        DefaultConfig::create()->url(random_string(50));
+        DefaultConfig::create()->url(random_string());
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->url(), rconfig->url());
@@ -247,7 +247,7 @@ TEST(DefaultConfig, BaseUrlSet) {
 
     const Config::ptr_t config = DefaultConfig::create();
 
-    const std::string test_url = random_string(50);
+    const std::string test_url = random_string();
 
     ASSERT_EQ(config, config->base_url(test_url));
     ASSERT_EQ(config->base_url(), test_url);
@@ -257,7 +257,7 @@ TEST(DefaultConfig, BaseUrlClear) {
     using namespace wtlgo::network;
 
     const Config::ptr_t config =
-        DefaultConfig::create()->base_url(random_string(50));
+        DefaultConfig::create()->base_url(random_string());
 
     ASSERT_EQ(config, config->clear_base_url());
     ASSERT_EQ(config->base_url(), std::nullopt);
@@ -276,7 +276,7 @@ TEST(DefaultConfig, BaseUrlCloneValue) {
     using namespace wtlgo::network;
 
     const Config::cptr_t config =
-        DefaultConfig::create()->base_url(random_string(50));
+        DefaultConfig::create()->base_url(random_string());
     const Config::cptr_t clone = config->clone();
 
     ASSERT_EQ(clone->base_url(), config->base_url());
@@ -298,7 +298,7 @@ TEST(DefaultConfig, BaseUrlMergeRight) {
 
     const Config::cptr_t lconfig = DefaultConfig::create()->clear_base_url();
     const Config::cptr_t rconfig =
-        DefaultConfig::create()->base_url(random_string(50));
+        DefaultConfig::create()->base_url(random_string());
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->base_url(), rconfig->base_url());
@@ -308,7 +308,7 @@ TEST(DefaultConfig, BaseUrlMergeLeft) {
     using namespace wtlgo::network;
 
     const Config::cptr_t lconfig =
-        DefaultConfig::create()->base_url(random_string(50));
+        DefaultConfig::create()->base_url(random_string());
     const Config::cptr_t rconfig = DefaultConfig::create()->clear_base_url();
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
@@ -319,9 +319,9 @@ TEST(DefaultConfig, BaseUrlMergeFull) {
     using namespace wtlgo::network;
 
     const Config::cptr_t lconfig =
-        DefaultConfig::create()->base_url(random_string(50));
+        DefaultConfig::create()->base_url(random_string());
     const Config::cptr_t rconfig =
-        DefaultConfig::create()->base_url(random_string(50));
+        DefaultConfig::create()->base_url(random_string());
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->base_url(), rconfig->base_url());
