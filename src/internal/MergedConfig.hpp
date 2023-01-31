@@ -33,6 +33,10 @@ public:
     Config::ptr_t base_url(Config::url_ref_t) override;
     Config::ptr_t clear_base_url() override;
 
+    Config::headers_opt_t headers() const override;
+    Config::ptr_t headers(headers_opt_t) override;
+    Config::ptr_t clear_headers() override;
+
 protected:
     MergedConfig(Config::cptr_t, Config::cptr_t);
 

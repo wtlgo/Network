@@ -59,6 +59,20 @@ public:
         lhs->clear_base_url();
         rhs->clear_base_url();
     }
+
+    Config::headers_opt_t headers() const {
+        return rhs->headers() ? rhs->headers() : lhs->headers();
+    }
+
+    void headers(const headers_opt_t headers) {
+        lhs->clear_headers();
+        rhs->headers(headers);
+    }
+
+    void clear_headers() {
+        lhs->clear_headers();
+        rhs->clear_headers();
+    }
 };
 
 MergedConfig::~MergedConfig() = default;
@@ -111,6 +125,18 @@ Config::ptr_t MergedConfig::base_url(const Config::url_ref_t url) {
 
 Config::ptr_t MergedConfig::clear_base_url() {
     impl->clear_base_url();
+    return shared_from_this();
+}
+
+Config::headers_opt_t MergedConfig::headers() const { return impl->headers(); }
+
+Config::ptr_t MergedConfig::headers(const Config::headers_opt_t headers) {
+    impl->headers(headers);
+    return shared_from_this();
+}
+
+Config::ptr_t MergedConfig::clear_headers() {
+    impl->clear_headers();
     return shared_from_this();
 }
 

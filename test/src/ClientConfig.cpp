@@ -7,6 +7,8 @@
 
 #include <wtlgo/network/Config.hpp>
 #include <wtlgo/network/ClientConfig.hpp>
+#include <wtlgo/network/Headers.hpp>
+#include <wtlgo/network/HttpHeaders.hpp>
 
 TEST(ClientConfig, Create) {
     using namespace wtlgo::network;
@@ -51,8 +53,7 @@ TEST(ClientConfig, UrlSet) {
 TEST(ClientConfig, UrlClear) {
     using namespace wtlgo::network;
 
-    const Config::ptr_t config =
-        ClientConfig::create()->url(random_string());
+    const Config::ptr_t config = ClientConfig::create()->url(random_string());
 
     ASSERT_EQ(config, config->clear_url());
     ASSERT_EQ(config->url(), std::nullopt);
@@ -70,8 +71,7 @@ TEST(ClientConfig, UrlCloneEmpty) {
 TEST(ClientConfig, UrlCloneValue) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t config =
-        ClientConfig::create()->url(random_string());
+    const Config::cptr_t config = ClientConfig::create()->url(random_string());
     const Config::cptr_t clone = config->clone();
 
     ASSERT_EQ(clone->url(), config->url());
@@ -92,8 +92,7 @@ TEST(ClientConfig, UrlMergeRight) {
     using namespace wtlgo::network;
 
     const Config::cptr_t lconfig = ClientConfig::create()->clear_url();
-    const Config::cptr_t rconfig =
-        ClientConfig::create()->url(random_string());
+    const Config::cptr_t rconfig = ClientConfig::create()->url(random_string());
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->url(), rconfig->url());
@@ -102,8 +101,7 @@ TEST(ClientConfig, UrlMergeRight) {
 TEST(ClientConfig, UrlMergeLeft) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t lconfig =
-        ClientConfig::create()->url(random_string());
+    const Config::cptr_t lconfig = ClientConfig::create()->url(random_string());
     const Config::cptr_t rconfig = ClientConfig::create()->clear_url();
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
@@ -113,10 +111,8 @@ TEST(ClientConfig, UrlMergeLeft) {
 TEST(ClientConfig, UrlMergeFull) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t lconfig =
-        ClientConfig::create()->url(random_string());
-    const Config::cptr_t rconfig =
-        ClientConfig::create()->url(random_string());
+    const Config::cptr_t lconfig = ClientConfig::create()->url(random_string());
+    const Config::cptr_t rconfig = ClientConfig::create()->url(random_string());
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->url(), rconfig->url());
@@ -325,4 +321,106 @@ TEST(ClientConfig, BaseUrlMergeFull) {
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->base_url(), rconfig->base_url());
+}
+
+TEST(ClientConfig, HeadersSet) {
+    using namespace wtlgo::network;
+
+    const Config::ptr_t config = ClientConfig::create();
+    const Headers::cptr_t test_headers = HttpHeaders::create();
+
+    ASSERT_EQ(config, config->headers(test_headers));
+    ASSERT_NE(config->headers(), nullptr);
+}
+
+TEST(ClientConfig, HeadersClear) {
+    using namespace wtlgo::network;
+
+    const Config::ptr_t config =
+        ClientConfig::create()->headers(HttpHeaders::create());
+
+    ASSERT_EQ(config, config->clear_headers());
+    ASSERT_EQ(config->headers(), nullptr);
+}
+
+TEST(ClientConfig, HeadersCloneEmpty) {
+    using namespace wtlgo::network;
+
+    const Config::cptr_t config = ClientConfig::create()->clear_headers();
+    const Config::cptr_t clone = config->clone();
+
+    ASSERT_EQ(clone->headers(), nullptr);
+}
+
+TEST(ClientConfig, HeadersCloneValue) {
+    using namespace wtlgo::network;
+
+    const std::string test_key = random_string();
+
+    const Config::cptr_t config = ClientConfig::create()->headers(
+        HttpHeaders::create()->set(test_key, random_string()));
+    const Config::cptr_t clone = config->clone();
+
+    ASSERT_NE(clone->headers(), nullptr);
+    ASSERT_NE(config->headers(), clone->headers());
+    ASSERT_EQ(config->headers()->get(test_key),
+              clone->headers()->get(test_key));
+}
+
+TEST(ClientConfig, HeadersMergeEmpty) {
+    using namespace wtlgo::network;
+
+    const Config::cptr_t lconfig = ClientConfig::create()->clear_headers();
+    const Config::cptr_t rconfig = ClientConfig::create()->clear_headers();
+    const Config::cptr_t merge = lconfig->merge(rconfig);
+
+    ASSERT_EQ(merge->headers(), nullptr);
+}
+
+TEST(ClientConfig, HeadersMergeLeft) {
+    using namespace wtlgo::network;
+
+    const std::string test_key = random_string();
+
+    const Config::cptr_t lconfig = ClientConfig::create()->headers(
+        HttpHeaders::create()->set(test_key, random_string()));
+    const Config::cptr_t rconfig = ClientConfig::create()->clear_headers();
+    const Config::cptr_t merge = lconfig->merge(rconfig);
+
+    ASSERT_NE(merge->headers(), nullptr);
+    ASSERT_EQ(merge->headers()->get(test_key),
+              lconfig->headers()->get(test_key));
+}
+
+TEST(ClientConfig, HeadersMergeRight) {
+    using namespace wtlgo::network;
+
+    const std::string test_key = random_string();
+
+    const Config::cptr_t lconfig = ClientConfig::create()->clear_headers();
+    const Config::cptr_t rconfig = ClientConfig::create()->headers(
+        HttpHeaders::create()->set(test_key, random_string()));
+    const Config::cptr_t merge = lconfig->merge(rconfig);
+
+    ASSERT_NE(merge->headers(), nullptr);
+    ASSERT_EQ(merge->headers()->get(test_key),
+              rconfig->headers()->get(test_key));
+}
+
+TEST(ClientConfig, HeadersMergeFull) {
+    using namespace wtlgo::network;
+
+    const std::string test_key = random_string();
+
+    const Config::cptr_t lconfig = ClientConfig::create()->headers(
+        HttpHeaders::create()->set(test_key, random_string()));
+    const Config::cptr_t rconfig = ClientConfig::create()->headers(
+        HttpHeaders::create()->set(test_key, random_string()));
+    const Config::cptr_t merge = lconfig->merge(rconfig);
+
+    ASSERT_NE(merge->headers(), nullptr);
+    ASSERT_NE(merge->headers()->get(test_key),
+              lconfig->headers()->get(test_key));
+    ASSERT_EQ(merge->headers()->get(test_key),
+              rconfig->headers()->get(test_key));
 }

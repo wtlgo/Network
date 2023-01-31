@@ -6,6 +6,7 @@
 #include <optional>
 
 #include <wtlgo/network/HttpMethod.hpp>
+#include <wtlgo/network/Headers.hpp>
 
 namespace wtlgo {
 namespace network {
@@ -35,6 +36,12 @@ struct Config {
     virtual url_opt_ref_t base_url() const = 0;
     virtual ptr_t base_url(url_ref_t) = 0;
     virtual ptr_t clear_base_url() = 0;
+
+    using headers_opt_t = Headers::cptr_t;
+
+    virtual headers_opt_t headers() const = 0;
+    virtual ptr_t headers(headers_opt_t) = 0;
+    virtual ptr_t clear_headers() = 0;
 };
 }
 }

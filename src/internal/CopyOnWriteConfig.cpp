@@ -40,6 +40,10 @@ public:
     Config::url_opt_ref_t base_url() const { return cptr()->base_url(); }
     void base_url(const Config::url_ref_t url) { ptr()->base_url(url); }
     void clear_base_url() { ptr()->clear_base_url(); }
+
+    Config::headers_opt_t headers() const { return cptr()->headers(); }
+    void headers(const headers_opt_t headers) { ptr()->headers(headers); }
+    void clear_headers() { ptr()->clear_headers(); }
 };
 
 CopyOnWriteConfig::~CopyOnWriteConfig() = default;
@@ -92,6 +96,20 @@ Config::ptr_t CopyOnWriteConfig::base_url(const Config::url_ref_t url) {
 
 Config::ptr_t CopyOnWriteConfig::clear_base_url() {
     impl->clear_base_url();
+    return shared_from_this();
+}
+
+Config::headers_opt_t CopyOnWriteConfig::headers() const {
+    return impl->headers();
+}
+
+Config::ptr_t CopyOnWriteConfig::headers(const Config::headers_opt_t headers) {
+    impl->headers(headers);
+    return shared_from_this();
+}
+
+Config::ptr_t CopyOnWriteConfig::clear_headers() {
+    impl->clear_headers();
     return shared_from_this();
 }
 

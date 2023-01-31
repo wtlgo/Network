@@ -16,14 +16,17 @@ private:
     std::optional<std::string> _url;
     Config::method_opt_t _method;
     std::optional<std::string> _base_url;
+    Config::headers_opt_t _headers;
 
 public:
     Impl() = default;
-    Impl(const Impl&) = default;
     Impl(const Config::cptr_t config)
         : _url{config->url()},
           _method{config->method()},
-          _base_url{config->base_url()} {}
+          _base_url{config->base_url()},
+          _headers{([headers = config->headers()] {
+              return headers ? headers->clone() : nullptr;
+          })()} {}
 
     Config::url_opt_ref_t url() const { return _url; }
     void url(const Config::url_ref_t url) { _url = url; }
@@ -36,6 +39,16 @@ public:
     Config::url_opt_ref_t base_url() const { return _base_url; }
     void base_url(const Config::url_ref_t url) { _base_url = url; }
     void clear_base_url() { _base_url = std::nullopt; }
+
+    Config::headers_opt_t headers() const { return _headers; }
+    void headers(const headers_opt_t headers) {
+        if (headers) {
+            _headers = headers->clone();
+        } else {
+            _headers = nullptr;
+        }
+    }
+    void clear_headers() { _headers = nullptr; }
 };
 
 ClientConfig::~ClientConfig() = default;
@@ -89,6 +102,18 @@ Config::ptr_t ClientConfig::base_url(const Config::url_ref_t url) {
 
 Config::ptr_t ClientConfig::clear_base_url() {
     impl->clear_base_url();
+    return shared_from_this();
+}
+
+Config::headers_opt_t ClientConfig::headers() const { return impl->headers(); }
+
+Config::ptr_t ClientConfig::headers(const Config::headers_opt_t headers) {
+    impl->headers(headers);
+    return shared_from_this();
+}
+
+Config::ptr_t ClientConfig::clear_headers() {
+    impl->clear_headers();
     return shared_from_this();
 }
 
