@@ -24,11 +24,13 @@ public:
     Headers::ptr_t set(Headers::key_ref_t header, value_ref_t value) override;
     Headers::ptr_t erase(Headers::key_ref_t header) override;
 
+protected:
+    HttpHeaders();
+
 private:
     struct Impl;
     const std::unique_ptr<Impl> impl;
 
-    HttpHeaders();
     HttpHeaders(const std::unique_ptr<Impl>& impl);
 };
 }
