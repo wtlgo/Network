@@ -7,16 +7,16 @@
 
 namespace wtlgo {
 namespace network {
-class DefaultConfig : public Config,
-                      public std::enable_shared_from_this<DefaultConfig> {
+class ClientConfig : public Config,
+                     public std::enable_shared_from_this<ClientConfig> {
 public:
-    using ptr_t = std::shared_ptr<DefaultConfig>;
-    using cptr_t = std::shared_ptr<const DefaultConfig>;
+    using ptr_t = std::shared_ptr<ClientConfig>;
+    using cptr_t = std::shared_ptr<const ClientConfig>;
 
-    virtual ~DefaultConfig();
+    virtual ~ClientConfig();
 
-    [[nodiscard]] static DefaultConfig::ptr_t create();
-    [[nodiscard]] static DefaultConfig::ptr_t clone(Config::cptr_t);
+    [[nodiscard]] static ClientConfig::ptr_t create();
+    [[nodiscard]] static ClientConfig::ptr_t clone(Config::cptr_t);
 
     Config::ptr_t clone() const override;
     Config::ptr_t merge(Config::cptr_t) const override;
@@ -34,15 +34,13 @@ public:
     Config::ptr_t clear_base_url() override;
 
 protected:
-    DefaultConfig();
-    DefaultConfig(const Config::cptr_t);
+    ClientConfig();
+    ClientConfig(const Config::cptr_t);
 
 private:
     struct Impl;
     const std::unique_ptr<Impl> impl;
 };
-
-using DConfig = DefaultConfig;
 }
 }
 

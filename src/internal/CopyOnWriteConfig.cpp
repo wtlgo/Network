@@ -1,6 +1,6 @@
 #include <memory>
 
-#include <wtlgo/network/DefaultConfig.hpp>
+#include <wtlgo/network/ClientConfig.hpp>
 #include "./MergedConfig.hpp"
 
 #include "./CopyOnWriteConfig.hpp"
@@ -16,7 +16,7 @@ private:
     void liquify() {
         if (!solid) return;
 
-        liquid = DefaultConfig::clone(solid);
+        liquid = ClientConfig::clone(solid);
         solid = nullptr;
     }
 
@@ -49,7 +49,7 @@ CopyOnWriteConfig::ptr_t CopyOnWriteConfig::adapt(const Config::cptr_t config) {
 }
 
 Config::ptr_t CopyOnWriteConfig::clone() const {
-    return DefaultConfig::clone(shared_from_this());
+    return ClientConfig::clone(shared_from_this());
 }
 
 Config::ptr_t CopyOnWriteConfig::merge(const Config::cptr_t rconfig) const {

@@ -7,11 +7,11 @@
 #include "./internal/MergedConfig.hpp"
 #include <wtlgo/network/Config.hpp>
 
-#include <wtlgo/network/DefaultConfig.hpp>
+#include <wtlgo/network/ClientConfig.hpp>
 
 using namespace wtlgo::network;
 
-struct DefaultConfig::Impl {
+struct ClientConfig::Impl {
 private:
     std::optional<std::string> _url;
     Config::method_opt_t _method;
@@ -38,61 +38,61 @@ public:
     void clear_base_url() { _base_url = std::nullopt; }
 };
 
-DefaultConfig::~DefaultConfig() = default;
+ClientConfig::~ClientConfig() = default;
 
-DefaultConfig::ptr_t DefaultConfig::create() {
-    return std::shared_ptr<DefaultConfig>{new DefaultConfig{}};
+ClientConfig::ptr_t ClientConfig::create() {
+    return std::shared_ptr<ClientConfig>{new ClientConfig{}};
 }
 
-DefaultConfig::ptr_t DefaultConfig::clone(const Config::cptr_t config) {
-    return std::shared_ptr<DefaultConfig>{new DefaultConfig{config}};
+ClientConfig::ptr_t ClientConfig::clone(const Config::cptr_t config) {
+    return std::shared_ptr<ClientConfig>{new ClientConfig{config}};
 }
 
-Config::ptr_t DefaultConfig::clone() const { return clone(shared_from_this()); }
+Config::ptr_t ClientConfig::clone() const { return clone(shared_from_this()); }
 
-Config::ptr_t DefaultConfig::merge(const Config::cptr_t rconfig) const {
+Config::ptr_t ClientConfig::merge(const Config::cptr_t rconfig) const {
     return internal::MergedConfig::merge(shared_from_this(), rconfig);
 }
 
-Config::url_opt_ref_t DefaultConfig::url() const { return impl->url(); }
+Config::url_opt_ref_t ClientConfig::url() const { return impl->url(); }
 
-Config::ptr_t DefaultConfig::url(const Config::url_ref_t url) {
+Config::ptr_t ClientConfig::url(const Config::url_ref_t url) {
     impl->url(url);
     return shared_from_this();
 }
 
-Config::ptr_t DefaultConfig::clear_url() {
+Config::ptr_t ClientConfig::clear_url() {
     impl->clear_url();
     return shared_from_this();
 }
 
-Config::method_opt_t DefaultConfig::method() const { return impl->method(); }
+Config::method_opt_t ClientConfig::method() const { return impl->method(); }
 
-Config::ptr_t DefaultConfig::method(const Config::method_t method) {
+Config::ptr_t ClientConfig::method(const Config::method_t method) {
     impl->method(method);
     return shared_from_this();
 }
 
-Config::ptr_t DefaultConfig::clear_method() {
+Config::ptr_t ClientConfig::clear_method() {
     impl->clear_method();
     return shared_from_this();
 }
 
-Config::url_opt_ref_t DefaultConfig::base_url() const {
+Config::url_opt_ref_t ClientConfig::base_url() const {
     return impl->base_url();
 }
 
-Config::ptr_t DefaultConfig::base_url(const Config::url_ref_t url) {
+Config::ptr_t ClientConfig::base_url(const Config::url_ref_t url) {
     impl->base_url(url);
     return shared_from_this();
 }
 
-Config::ptr_t DefaultConfig::clear_base_url() {
+Config::ptr_t ClientConfig::clear_base_url() {
     impl->clear_base_url();
     return shared_from_this();
 }
 
-DefaultConfig::DefaultConfig() : impl{std::make_unique<Impl>()} {}
+ClientConfig::ClientConfig() : impl{std::make_unique<Impl>()} {}
 
-DefaultConfig::DefaultConfig(const Config::cptr_t config)
+ClientConfig::ClientConfig(const Config::cptr_t config)
     : impl{std::make_unique<Impl>(config)} {}

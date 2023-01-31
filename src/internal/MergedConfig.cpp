@@ -3,7 +3,7 @@
 #include "./MergedConfig.hpp"
 #include "./CopyOnWriteConfig.hpp"
 
-#include <wtlgo/network/DefaultConfig.hpp>
+#include <wtlgo/network/ClientConfig.hpp>
 
 using namespace wtlgo::network;
 using namespace wtlgo::network::internal;
@@ -69,7 +69,7 @@ MergedConfig::ptr_t MergedConfig::merge(const Config::cptr_t lconfig,
 }
 
 Config::ptr_t MergedConfig::clone() const {
-    return DefaultConfig::clone(shared_from_this());
+    return ClientConfig::clone(shared_from_this());
 }
 
 Config::ptr_t MergedConfig::merge(const Config::cptr_t rconfig) const {

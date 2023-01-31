@@ -6,30 +6,30 @@
 #include <stdexcept>
 
 #include <wtlgo/network/Config.hpp>
-#include <wtlgo/network/DefaultConfig.hpp>
+#include <wtlgo/network/ClientConfig.hpp>
 
-TEST(DefaultConfig, Create) {
+TEST(ClientConfig, Create) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t config = DefaultConfig::create();
+    const Config::cptr_t config = ClientConfig::create();
     ASSERT_NE(config, nullptr);
 }
 
-TEST(DefaultConfig, Clone) {
+TEST(ClientConfig, Clone) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t config = DefaultConfig::create();
+    const Config::cptr_t config = ClientConfig::create();
 
     const Config::cptr_t clone = config->clone();
     ASSERT_NE(clone, nullptr);
     ASSERT_NE(clone, config);
 }
 
-TEST(DefaultConfig, Merge) {
+TEST(ClientConfig, Merge) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t lconfig = DefaultConfig::create();
-    const Config::cptr_t rconfig = DefaultConfig::create();
+    const Config::cptr_t lconfig = ClientConfig::create();
+    const Config::cptr_t rconfig = ClientConfig::create();
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_NE(mconfig, nullptr);
@@ -37,10 +37,10 @@ TEST(DefaultConfig, Merge) {
     ASSERT_NE(mconfig, lconfig);
 }
 
-TEST(DefaultConfig, UrlSet) {
+TEST(ClientConfig, UrlSet) {
     using namespace wtlgo::network;
 
-    const Config::ptr_t config = DefaultConfig::create();
+    const Config::ptr_t config = ClientConfig::create();
 
     const std::string test_url = random_string();
 
@@ -48,91 +48,91 @@ TEST(DefaultConfig, UrlSet) {
     ASSERT_EQ(config->url(), test_url);
 }
 
-TEST(DefaultConfig, UrlClear) {
+TEST(ClientConfig, UrlClear) {
     using namespace wtlgo::network;
 
     const Config::ptr_t config =
-        DefaultConfig::create()->url(random_string());
+        ClientConfig::create()->url(random_string());
 
     ASSERT_EQ(config, config->clear_url());
     ASSERT_EQ(config->url(), std::nullopt);
 }
 
-TEST(DefaultConfig, UrlCloneEmpty) {
+TEST(ClientConfig, UrlCloneEmpty) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t config = DefaultConfig::create()->clear_url();
+    const Config::cptr_t config = ClientConfig::create()->clear_url();
     const Config::cptr_t clone = config->clone();
 
     ASSERT_EQ(clone->url(), std::nullopt);
 }
 
-TEST(DefaultConfig, UrlCloneValue) {
+TEST(ClientConfig, UrlCloneValue) {
     using namespace wtlgo::network;
 
     const Config::cptr_t config =
-        DefaultConfig::create()->url(random_string());
+        ClientConfig::create()->url(random_string());
     const Config::cptr_t clone = config->clone();
 
     ASSERT_EQ(clone->url(), config->url());
     ASSERT_NE(clone->url()->data(), config->url()->data());
 }
 
-TEST(DefaultConfig, UrlMergeEmpty) {
+TEST(ClientConfig, UrlMergeEmpty) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t lconfig = DefaultConfig::create()->clear_url();
-    const Config::cptr_t rconfig = DefaultConfig::create()->clear_url();
+    const Config::cptr_t lconfig = ClientConfig::create()->clear_url();
+    const Config::cptr_t rconfig = ClientConfig::create()->clear_url();
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->url(), std::nullopt);
 }
 
-TEST(DefaultConfig, UrlMergeRight) {
+TEST(ClientConfig, UrlMergeRight) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t lconfig = DefaultConfig::create()->clear_url();
+    const Config::cptr_t lconfig = ClientConfig::create()->clear_url();
     const Config::cptr_t rconfig =
-        DefaultConfig::create()->url(random_string());
+        ClientConfig::create()->url(random_string());
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->url(), rconfig->url());
 }
 
-TEST(DefaultConfig, UrlMergeLeft) {
+TEST(ClientConfig, UrlMergeLeft) {
     using namespace wtlgo::network;
 
     const Config::cptr_t lconfig =
-        DefaultConfig::create()->url(random_string());
-    const Config::cptr_t rconfig = DefaultConfig::create()->clear_url();
+        ClientConfig::create()->url(random_string());
+    const Config::cptr_t rconfig = ClientConfig::create()->clear_url();
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->url(), lconfig->url());
 }
 
-TEST(DefaultConfig, UrlMergeFull) {
+TEST(ClientConfig, UrlMergeFull) {
     using namespace wtlgo::network;
 
     const Config::cptr_t lconfig =
-        DefaultConfig::create()->url(random_string());
+        ClientConfig::create()->url(random_string());
     const Config::cptr_t rconfig =
-        DefaultConfig::create()->url(random_string());
+        ClientConfig::create()->url(random_string());
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->url(), rconfig->url());
 }
 
-TEST(DefaultConfig, MethodDefault) {
+TEST(ClientConfig, MethodDefault) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t config = DefaultConfig::create();
+    const Config::cptr_t config = ClientConfig::create();
     ASSERT_EQ(config->method(), std::nullopt);
 }
 
-TEST(DefaultConfig, MethodSet) {
+TEST(ClientConfig, MethodSet) {
     using namespace wtlgo::network;
 
-    const Config::ptr_t config = DefaultConfig::create();
+    const Config::ptr_t config = ClientConfig::create();
 
     for (const HttpMethod test_method :
          {HttpMethod::GET, HttpMethod::POST, HttpMethod::PATCH, HttpMethod::PUT,
@@ -142,99 +142,99 @@ TEST(DefaultConfig, MethodSet) {
     }
 }
 
-TEST(DefaultConfig, MethodClear) {
+TEST(ClientConfig, MethodClear) {
     using namespace wtlgo::network;
 
     for (const HttpMethod test_method :
          {HttpMethod::GET, HttpMethod::POST, HttpMethod::PATCH, HttpMethod::PUT,
           HttpMethod::DELETE}) {
         const Config::ptr_t config =
-            DefaultConfig::create()->method(test_method);
+            ClientConfig::create()->method(test_method);
 
         ASSERT_EQ(config, config->clear_method());
         ASSERT_EQ(config->method(), std::nullopt);
     }
 }
 
-TEST(DefaultConfig, MethodCloneEmpty) {
+TEST(ClientConfig, MethodCloneEmpty) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t config = DefaultConfig::create()->clear_method();
+    const Config::cptr_t config = ClientConfig::create()->clear_method();
     const Config::cptr_t clone = config->clone();
 
     ASSERT_EQ(clone->method(), std::nullopt);
 }
 
-TEST(DefaultConfig, MethodCloneValue) {
+TEST(ClientConfig, MethodCloneValue) {
     using namespace wtlgo::network;
 
     for (const HttpMethod test_method :
          {HttpMethod::GET, HttpMethod::POST, HttpMethod::PATCH, HttpMethod::PUT,
           HttpMethod::DELETE}) {
         const Config::cptr_t config =
-            DefaultConfig::create()->method(test_method);
+            ClientConfig::create()->method(test_method);
         const Config::cptr_t clone = config->clone();
 
         ASSERT_EQ(clone->method(), test_method);
     }
 }
 
-TEST(DefaultConfig, MethodMergeEmpty) {
+TEST(ClientConfig, MethodMergeEmpty) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t lconfig = DefaultConfig::create()->clear_method();
-    const Config::cptr_t rconfig = DefaultConfig::create()->clear_method();
+    const Config::cptr_t lconfig = ClientConfig::create()->clear_method();
+    const Config::cptr_t rconfig = ClientConfig::create()->clear_method();
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(rconfig->method(), std::nullopt);
 }
 
-TEST(DefaultConfig, MethodMergeLeft) {
+TEST(ClientConfig, MethodMergeLeft) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t rconfig = DefaultConfig::create()->clear_method();
+    const Config::cptr_t rconfig = ClientConfig::create()->clear_method();
 
     for (const HttpMethod test_method :
          {HttpMethod::GET, HttpMethod::POST, HttpMethod::PATCH, HttpMethod::PUT,
           HttpMethod::DELETE}) {
         const Config::cptr_t lconfig =
-            DefaultConfig::create()->method(test_method);
+            ClientConfig::create()->method(test_method);
         const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
         ASSERT_EQ(mconfig->method(), test_method);
     }
 }
 
-TEST(DefaultConfig, MethodMergeRight) {
+TEST(ClientConfig, MethodMergeRight) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t lconfig = DefaultConfig::create()->clear_method();
+    const Config::cptr_t lconfig = ClientConfig::create()->clear_method();
 
     for (const HttpMethod test_method :
          {HttpMethod::GET, HttpMethod::POST, HttpMethod::PATCH, HttpMethod::PUT,
           HttpMethod::DELETE}) {
         const Config::cptr_t rconfig =
-            DefaultConfig::create()->method(test_method);
+            ClientConfig::create()->method(test_method);
         const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
         ASSERT_EQ(mconfig->method(), test_method);
     }
 }
 
-TEST(DefaultConfig, MethodMergeFull) {
+TEST(ClientConfig, MethodMergeFull) {
     using namespace wtlgo::network;
 
     for (const HttpMethod ltest_method :
          {HttpMethod::GET, HttpMethod::POST, HttpMethod::PATCH, HttpMethod::PUT,
           HttpMethod::DELETE}) {
         const Config::cptr_t lconfig =
-            DefaultConfig::create()->method(ltest_method);
+            ClientConfig::create()->method(ltest_method);
 
         for (const HttpMethod rtest_method :
              {HttpMethod::GET, HttpMethod::POST, HttpMethod::PATCH,
               HttpMethod::PUT, HttpMethod::DELETE}) {
             const Config::cptr_t rconfig =
-                DefaultConfig::create()->method(rtest_method);
+                ClientConfig::create()->method(rtest_method);
             const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
             ASSERT_EQ(mconfig->method(), rtest_method);
@@ -242,10 +242,10 @@ TEST(DefaultConfig, MethodMergeFull) {
     }
 }
 
-TEST(DefaultConfig, BaseUrlSet) {
+TEST(ClientConfig, BaseUrlSet) {
     using namespace wtlgo::network;
 
-    const Config::ptr_t config = DefaultConfig::create();
+    const Config::ptr_t config = ClientConfig::create();
 
     const std::string test_url = random_string();
 
@@ -253,75 +253,75 @@ TEST(DefaultConfig, BaseUrlSet) {
     ASSERT_EQ(config->base_url(), test_url);
 }
 
-TEST(DefaultConfig, BaseUrlClear) {
+TEST(ClientConfig, BaseUrlClear) {
     using namespace wtlgo::network;
 
     const Config::ptr_t config =
-        DefaultConfig::create()->base_url(random_string());
+        ClientConfig::create()->base_url(random_string());
 
     ASSERT_EQ(config, config->clear_base_url());
     ASSERT_EQ(config->base_url(), std::nullopt);
 }
 
-TEST(DefaultConfig, BaseUrlCloneEmpty) {
+TEST(ClientConfig, BaseUrlCloneEmpty) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t config = DefaultConfig::create()->clear_base_url();
+    const Config::cptr_t config = ClientConfig::create()->clear_base_url();
     const Config::cptr_t clone = config->clone();
 
     ASSERT_EQ(clone->base_url(), std::nullopt);
 }
 
-TEST(DefaultConfig, BaseUrlCloneValue) {
+TEST(ClientConfig, BaseUrlCloneValue) {
     using namespace wtlgo::network;
 
     const Config::cptr_t config =
-        DefaultConfig::create()->base_url(random_string());
+        ClientConfig::create()->base_url(random_string());
     const Config::cptr_t clone = config->clone();
 
     ASSERT_EQ(clone->base_url(), config->base_url());
     ASSERT_NE(clone->base_url()->data(), config->base_url()->data());
 }
 
-TEST(DefaultConfig, BaseUrlMergeEmpty) {
+TEST(ClientConfig, BaseUrlMergeEmpty) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t lconfig = DefaultConfig::create()->clear_base_url();
-    const Config::cptr_t rconfig = DefaultConfig::create()->clear_base_url();
+    const Config::cptr_t lconfig = ClientConfig::create()->clear_base_url();
+    const Config::cptr_t rconfig = ClientConfig::create()->clear_base_url();
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->base_url(), std::nullopt);
 }
 
-TEST(DefaultConfig, BaseUrlMergeRight) {
+TEST(ClientConfig, BaseUrlMergeRight) {
     using namespace wtlgo::network;
 
-    const Config::cptr_t lconfig = DefaultConfig::create()->clear_base_url();
+    const Config::cptr_t lconfig = ClientConfig::create()->clear_base_url();
     const Config::cptr_t rconfig =
-        DefaultConfig::create()->base_url(random_string());
+        ClientConfig::create()->base_url(random_string());
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->base_url(), rconfig->base_url());
 }
 
-TEST(DefaultConfig, BaseUrlMergeLeft) {
+TEST(ClientConfig, BaseUrlMergeLeft) {
     using namespace wtlgo::network;
 
     const Config::cptr_t lconfig =
-        DefaultConfig::create()->base_url(random_string());
-    const Config::cptr_t rconfig = DefaultConfig::create()->clear_base_url();
+        ClientConfig::create()->base_url(random_string());
+    const Config::cptr_t rconfig = ClientConfig::create()->clear_base_url();
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->base_url(), lconfig->base_url());
 }
 
-TEST(DefaultConfig, BaseUrlMergeFull) {
+TEST(ClientConfig, BaseUrlMergeFull) {
     using namespace wtlgo::network;
 
     const Config::cptr_t lconfig =
-        DefaultConfig::create()->base_url(random_string());
+        ClientConfig::create()->base_url(random_string());
     const Config::cptr_t rconfig =
-        DefaultConfig::create()->base_url(random_string());
+        ClientConfig::create()->base_url(random_string());
     const Config::cptr_t mconfig = lconfig->merge(rconfig);
 
     ASSERT_EQ(mconfig->base_url(), rconfig->base_url());

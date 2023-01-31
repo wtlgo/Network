@@ -19,7 +19,7 @@ set(PUBLIC_HEADERS
         "include/wtlgo/network/HttpMethod.hpp"
 
         "include/wtlgo/network/Config.hpp"
-        "include/wtlgo/network/DefaultConfig.hpp"
+        "include/wtlgo/network/ClientConfig.hpp"
 
         "include/wtlgo/network/Headers.hpp"
         "include/wtlgo/network/HttpHeaders.hpp"
@@ -28,7 +28,7 @@ set(PUBLIC_HEADERS
 set(SOURCES
         "src/NetworkOld.cpp"
         "src/HttpBasicAuth.cpp"
-        "src/DefaultConfig.cpp"
+        "src/ClientConfig.cpp"
         "src/HttpHeaders.cpp"
 
         "src/internal/MergedConfig.hpp"
