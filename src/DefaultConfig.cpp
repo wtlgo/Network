@@ -25,20 +25,6 @@ public:
           _method{config->method()},
           _base_url{config->base_url()} {}
 
-    std::unique_ptr<Impl> merge(const Config::cptr_t rconfig) const {
-        if (rconfig == nullptr) {
-            throw std::invalid_argument{"nullptr is provided!"};
-        }
-
-        auto res = std::make_unique<Impl>(*this);
-
-        if (rconfig->url()) {
-            res->_url = rconfig->url();
-        }
-
-        return res;
-    }
-
     Config::url_opt_ref_t url() const { return _url; }
     void url(const Config::url_ref_t url) { _url = url; }
     void clear_url() { _url = std::nullopt; }
