@@ -14,14 +14,14 @@
 TEST(HttpHeaders, Create) {
     using namespace wtlgo::network;
 
-    Headers::cptr_t headers = HttpHeaders::create();
+    const Headers::cptr_t headers = HttpHeaders::create();
     ASSERT_NE(headers, nullptr);
 }
 
 TEST(HttpHeaders, Clone) {
     using namespace wtlgo::network;
 
-    Headers::ptr_t headers = HttpHeaders::create();
+    const Headers::ptr_t headers = HttpHeaders::create();
     for (std::size_t i = 0; i < 50; ++i) {
         headers->set(random_string(), random_string());
     }
@@ -40,7 +40,7 @@ TEST(HttpHeaders, Clone) {
 TEST(HttpHeaders, Set) {
     using namespace wtlgo::network;
 
-    Headers::ptr_t headers = HttpHeaders::create();
+    const Headers::ptr_t headers = HttpHeaders::create();
 
     const std::string key = random_string();
     const std::string value = random_string();
@@ -71,7 +71,7 @@ TEST(HttpHeaders, Keys) {
         return res;
     }();
 
-    Headers::ptr_t headers = HttpHeaders::create();
+    const Headers::ptr_t headers = HttpHeaders::create();
     for (const auto& header : keys) {
         headers->set(header, random_string());
     }
