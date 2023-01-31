@@ -13,7 +13,7 @@ find_package(CURL REQUIRED)
 set(PUBLIC_HEADERS
         "include/wtlgo/NetworkOld.hpp"
 
-        "include/wtlgo/network/HttpBasicAuth.hpp"
+        "include/wtlgo/network/Auth.hpp"
         "include/wtlgo/network/DefaultHttpBasicAuth.hpp"
 
         "include/wtlgo/network/HttpMethod.hpp"

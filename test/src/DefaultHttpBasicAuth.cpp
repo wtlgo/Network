@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include <wtlgo/network/HttpBasicAuth.hpp>
+#include <wtlgo/network/Auth.hpp>
 #include <wtlgo/network/DefaultHttpBasicAuth.hpp>
 
 TEST(DefaultHttpBasicAuth, Create) {
@@ -12,7 +12,7 @@ TEST(DefaultHttpBasicAuth, Create) {
     const std::string test_username = random_string();
     const std::string test_password = random_string();
 
-    const HttpBasicAuth::cptr_t client =
+    const Auth::cptr_t client =
         DefaultHttpBasicAuth::create(test_username, test_password);
 
     ASSERT_NE(client, nullptr);
@@ -23,10 +23,10 @@ TEST(DefaultHttpBasicAuth, Create) {
 TEST(DefaultHttpBasicAuth, Clone) {
     using namespace wtlgo::network;
 
-    const HttpBasicAuth::cptr_t client =
+    const Auth::cptr_t client =
         DefaultHttpBasicAuth::create(random_string(), random_string());
 
-    const HttpBasicAuth::cptr_t clone = client->clone();
+    const Auth::cptr_t clone = client->clone();
     ASSERT_NE(clone, nullptr);
     ASSERT_NE(clone, client);
 
@@ -40,7 +40,7 @@ TEST(DefaultHttpBasicAuth, Clone) {
 TEST(DefaultHttpBasicAuth, SetUsername) {
     using namespace wtlgo::network;
 
-    const HttpBasicAuth::ptr_t client =
+    const Auth::ptr_t client =
         DefaultHttpBasicAuth::create(random_string(), random_string());
 
     const std::string test_username = random_string();
@@ -51,7 +51,7 @@ TEST(DefaultHttpBasicAuth, SetUsername) {
 TEST(DefaultHttpBasicAuth, SetPassword) {
     using namespace wtlgo::network;
 
-    const HttpBasicAuth::ptr_t client =
+    const Auth::ptr_t client =
         DefaultHttpBasicAuth::create(random_string(), random_string());
 
     const std::string test_password = random_string();

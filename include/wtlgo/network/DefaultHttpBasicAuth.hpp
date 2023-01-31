@@ -3,12 +3,12 @@
 
 #include <memory>
 
-#include <wtlgo/network/HttpBasicAuth.hpp>
+#include <wtlgo/network/Auth.hpp>
 
 namespace wtlgo {
 namespace network {
 class DefaultHttpBasicAuth
-    : public HttpBasicAuth,
+    : public Auth,
       public std::enable_shared_from_this<DefaultHttpBasicAuth> {
 public:
     using ptr_t = std::shared_ptr<DefaultHttpBasicAuth>;
@@ -17,20 +17,20 @@ public:
     virtual ~DefaultHttpBasicAuth();
 
     [[nodiscard]] static DefaultHttpBasicAuth::ptr_t create(
-        HttpBasicAuth::username_ref_t username,
-        HttpBasicAuth::password_ref_t password);
+        Auth::username_ref_t username,
+        Auth::password_ref_t password);
 
-    HttpBasicAuth::ptr_t clone() const override;
+    Auth::ptr_t clone() const override;
 
-    HttpBasicAuth::username_ref_t username() const override;
-    HttpBasicAuth::ptr_t username(HttpBasicAuth::username_ref_t) override;
+    Auth::username_ref_t username() const override;
+    Auth::ptr_t username(Auth::username_ref_t) override;
 
-    HttpBasicAuth::password_ref_t password() const override;
-    HttpBasicAuth::ptr_t password(HttpBasicAuth::password_ref_t) override;
+    Auth::password_ref_t password() const override;
+    Auth::ptr_t password(Auth::password_ref_t) override;
 
 protected:
-    DefaultHttpBasicAuth(HttpBasicAuth::username_ref_t username,
-                         HttpBasicAuth::password_ref_t password);
+    DefaultHttpBasicAuth(Auth::username_ref_t username,
+                         Auth::password_ref_t password);
 
 private:
     struct Impl;
