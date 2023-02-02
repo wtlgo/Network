@@ -54,7 +54,7 @@ public:
 ClientConfig::~ClientConfig() = default;
 
 ClientConfig::ptr_t ClientConfig::create() {
-    return std::shared_ptr<ClientConfig>{new ClientConfig{}};
+    return std::shared_ptr<ClientConfig>{new ClientConfig};
 }
 
 ClientConfig::ptr_t ClientConfig::clone(const Config::cptr_t config) {

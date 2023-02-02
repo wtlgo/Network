@@ -23,6 +23,9 @@ set(PUBLIC_HEADERS
 
         "include/wtlgo/network/Headers.hpp"
         "include/wtlgo/network/HttpHeaders.hpp"
+
+        "include/wtlgo/network/Client.hpp"
+        "include/wtlgo/network/CurlClient.hpp"
 )
 
 set(SOURCES
@@ -30,6 +33,7 @@ set(SOURCES
         "src/HttpBasicAuth.cpp"
         "src/ClientConfig.cpp"
         "src/HttpHeaders.cpp"
+        "src/CurlClient.cpp"
 
         "src/internal/MergedConfig.hpp"
         "src/internal/MergedConfig.cpp"
