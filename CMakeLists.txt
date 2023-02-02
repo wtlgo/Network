@@ -37,9 +37,11 @@ set(SOURCES
 
         "src/internal/config/MergedConfig.hpp"
         "src/internal/config/MergedConfig.cpp"
-
         "src/internal/config/CopyOnWriteConfig.hpp"
         "src/internal/config/CopyOnWriteConfig.cpp"
+
+        "src/internal/curl/CurlHandler.hpp"
+        "src/internal/curl/CurlHandler.cpp"
 )
 
 add_library(Network ${SOURCES})
