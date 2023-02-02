@@ -40,8 +40,11 @@ set(SOURCES
         "src/internal/config/CopyOnWriteConfig.hpp"
         "src/internal/config/CopyOnWriteConfig.cpp"
 
-        "src/internal/curl/CurlHandler.hpp"
-        "src/internal/curl/CurlHandler.cpp"
+        "src/internal/curl/Types.hpp"
+        "src/internal/curl/CurlEasyHandler.hpp"
+        "src/internal/curl/CurlEasyHandler.cpp"
+        "src/internal/curl/CurlHandlerBuilder.hpp"
+        "src/internal/curl/CurlHandlerBuilder.cpp"
 )
 
 add_library(Network ${SOURCES})
