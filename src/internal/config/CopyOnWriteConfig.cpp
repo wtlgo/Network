@@ -6,7 +6,7 @@
 #include "./CopyOnWriteConfig.hpp"
 
 using namespace wtlgo::network;
-using namespace wtlgo::network::internal;
+using namespace wtlgo::network::internal::config;
 
 struct CopyOnWriteConfig::Impl {
 private:

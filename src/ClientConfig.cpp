@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <utility>
 
-#include "./internal/MergedConfig.hpp"
+#include "./internal/Config/MergedConfig.hpp"
 #include <wtlgo/network/Config.hpp>
 
 #include <wtlgo/network/ClientConfig.hpp>
@@ -64,7 +64,8 @@ ClientConfig::ptr_t ClientConfig::clone(const Config::cptr_t config) {
 Config::ptr_t ClientConfig::clone() const { return clone(shared_from_this()); }
 
 Config::ptr_t ClientConfig::merge(const Config::cptr_t rconfig) const {
-    return internal::MergedConfig::merge(shared_from_this(), rconfig);
+    using namespace wtlgo::network::internal::config;
+    return MergedConfig::merge(shared_from_this(), rconfig);
 }
 
 Config::url_opt_ref_t ClientConfig::url() const { return impl->url(); }

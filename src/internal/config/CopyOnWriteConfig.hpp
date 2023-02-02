@@ -1,5 +1,5 @@
-#ifndef __WTLGO__NETWORK__INTERNAL__COPY_ON_WRITE_CONFIG__
-#define __WTLGO__NETWORK__INTERNAL__COPY_ON_WRITE_CONFIG__
+#ifndef __WTLGO__NETWORK__INTERNAL__CONFIG__COPY_ON_WRITE_CONFIG__
+#define __WTLGO__NETWORK__INTERNAL__CONFIG__COPY_ON_WRITE_CONFIG__
 
 #include <wtlgo/network/Config.hpp>
 #include <memory>
@@ -7,6 +7,7 @@
 namespace wtlgo {
 namespace network {
 namespace internal {
+namespace config {
 class CopyOnWriteConfig
     : public Config,
       public std::enable_shared_from_this<CopyOnWriteConfig> {
@@ -44,6 +45,7 @@ private:
     struct Impl;
     const std::unique_ptr<Impl> impl;
 };
+}
 }
 }
 }

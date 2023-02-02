@@ -6,7 +6,7 @@
 #include <wtlgo/network/ClientConfig.hpp>
 
 using namespace wtlgo::network;
-using namespace wtlgo::network::internal;
+using namespace wtlgo::network::internal::config;
 
 struct MergedConfig::Impl {
 private:

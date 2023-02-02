@@ -1,5 +1,5 @@
-#ifndef __WTLGO__NETWORK__INTERNAL__MERGED_CONFIG__
-#define __WTLGO__NETWORK__INTERNAL__MERGED_CONFIG__
+#ifndef __WTLGO__NETWORK__INTERNAL__CONFIG__MERGED_CONFIG__
+#define __WTLGO__NETWORK__INTERNAL__CONFIG__MERGED_CONFIG__
 
 #include <wtlgo/network/Config.hpp>
 #include <memory>
@@ -7,6 +7,7 @@
 namespace wtlgo {
 namespace network {
 namespace internal {
+namespace config {
 class MergedConfig : public Config,
                      public std::enable_shared_from_this<MergedConfig> {
 public:
@@ -44,6 +45,7 @@ private:
     struct Impl;
     const std::unique_ptr<Impl> impl;
 };
+}
 }
 }
 }
