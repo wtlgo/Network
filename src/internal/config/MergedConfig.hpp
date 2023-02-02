@@ -42,8 +42,8 @@ protected:
     MergedConfig(Config::cptr_t, Config::cptr_t);
 
 private:
-    struct Impl;
-    const std::unique_ptr<Impl> impl;
+    Config::ptr_t lhs;
+    Config::ptr_t rhs;
 };
 }
 }

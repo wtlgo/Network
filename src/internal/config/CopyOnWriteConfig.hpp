@@ -42,8 +42,11 @@ protected:
     CopyOnWriteConfig(Config::cptr_t);
 
 private:
-    struct Impl;
-    const std::unique_ptr<Impl> impl;
+    Config::cptr_t solid;
+    Config::ptr_t liquid;
+
+    Config::cptr_t cptr() const;
+    Config::ptr_t ptr();
 };
 }
 }
