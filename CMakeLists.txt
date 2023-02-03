@@ -43,8 +43,8 @@ set(SOURCES
         "src/internal/curl/Types.hpp"
         "src/internal/curl/CurlEasyHandler.hpp"
         "src/internal/curl/CurlEasyHandler.cpp"
-        "src/internal/curl/CurlHandlerBuilder.hpp"
-        "src/internal/curl/CurlHandlerBuilder.cpp"
+        "src/internal/curl/CurlEasyHandlerBuilder.hpp"
+        "src/internal/curl/CurlEasyHandlerBuilder.cpp"
 )
 
 add_library(Network ${SOURCES})
