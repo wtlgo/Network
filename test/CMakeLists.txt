@@ -1,26 +1,30 @@
 cmake_minimum_required(VERSION 3.13) 
 
-find_package(GTest)
-find_package(nlohmann_json)
 
-include(GoogleTest)
+include(FetchContent)
 
-if(${GTest_FOUND} AND ${nlohmann_json_FOUND})
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+FetchContent_Declare(
+    json 
+    URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz
+)
+FetchContent_MakeAvailable(json)
+
+FetchContent_Declare(
+    googletest
+    URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+
 file(GLOB TEST_SRC
-    "src/*.hpp"
     "src/*.cpp"
 )
 
 add_executable(Network_test ${TEST_SRC})
-target_link_libraries(Network_test Network ${GTEST_LIBRARIES} nlohmann_json)
-target_include_directories(Network_test PRIVATE ${GTEST_INCLUDE_DIR})
-gtest_add_tests(TARGET Network_test AUTO)
+target_link_libraries(Network_test Network GTest::gtest_main nlohmann_json::nlohmann_json)
 
-else()
-
-message(WARNING "You should install GTest and nlohmann-json to enable tests.")
-
-endif()
-
+include(GoogleTest)
+gtest_discover_tests(Network_test)

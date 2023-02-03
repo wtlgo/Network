@@ -10,14 +10,52 @@ project(
 
 find_package(CURL REQUIRED)
 
-add_library(Network src/Network.cpp include/wtlgo/Network.hpp)
+set(PUBLIC_HEADERS
+        "include/wtlgo/NetworkOld.hpp"
+
+        "include/wtlgo/network/Auth.hpp"
+        "include/wtlgo/network/HttpBasicAuth.hpp"
+
+        "include/wtlgo/network/HttpMethod.hpp"
+
+        "include/wtlgo/network/Config.hpp"
+        "include/wtlgo/network/ClientConfig.hpp"
+
+        "include/wtlgo/network/Headers.hpp"
+        "include/wtlgo/network/HttpHeaders.hpp"
+
+        "include/wtlgo/network/Client.hpp"
+        "include/wtlgo/network/CurlClient.hpp"
+)
+
+set(SOURCES
+        "src/NetworkOld.cpp"
+        "src/HttpBasicAuth.cpp"
+        "src/ClientConfig.cpp"
+        "src/HttpHeaders.cpp"
+        "src/CurlClient.cpp"
+
+        "src/internal/config/MergedConfig.hpp"
+        "src/internal/config/MergedConfig.cpp"
+        "src/internal/config/CopyOnWriteConfig.hpp"
+        "src/internal/config/CopyOnWriteConfig.cpp"
+
+        "src/internal/curl/Types.hpp"
+        "src/internal/curl/CurlEasyHandler.hpp"
+        "src/internal/curl/CurlEasyHandler.cpp"
+        "src/internal/curl/CurlEasyHandlerBuilder.hpp"
+        "src/internal/curl/CurlEasyHandlerBuilder.cpp"
+)
+
+add_library(Network ${SOURCES})
 target_compile_features(Network PUBLIC cxx_std_17)
-target_link_libraries(Network PUBLIC ${CURL_LIBRARIES})
+target_link_libraries(Network PUBLIC CURL::libcurl)
 
 target_include_directories(Network PUBLIC include/)
-target_include_directories(Network PRIVATE include/wtlgo/ ${CURL_INCLUDE_DIR})
+target_include_directories(Network PRIVATE include/)
+
 set_target_properties(Network PROPERTIES 
-        PUBLIC_HEADER include/wtlgo/Network.hpp
+        PUBLIC_HEADER "${PUBLIC_HEADERS}"
         VERSION ${PROJECT_VERSION}
 )
 
@@ -28,5 +66,7 @@ install(
         PUBLIC_HEADER DESTINATION include/wtlgo COMPONENT Development
 )
 
-enable_testing()
-add_subdirectory(test)
+if(DEFINED ENABLE_TESTING)
+        enable_testing()
+        add_subdirectory(test)
+endif()
